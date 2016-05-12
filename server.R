@@ -3,7 +3,7 @@
 
 rm(list = ls())  # clean out workspace and set working directory
 
-setwd('C:/Users/flbk/Documents/GitHub/FlomKart')
+setwd('C:/Users/flbk/Documents/GitHub/FlomKart_ShinyApp')
 
 library(shiny)        # TO run the app!
 library(leaflet)      # For the interactive map    
@@ -16,8 +16,8 @@ library(DT)         # for the data tables
 library(shinyBS)      # for the interactive popover features
 
 
-nc <- open.nc("output/flood_database.nc", write = FALSE)  # Put FALSE for read-only
-gof_nc <- open.nc("output/gof.nc", write = FALSE)  # Put FALSE for read-only
+nc <- open.nc("data/flood_database.nc", write = FALSE)  # Put FALSE for read-only
+gof_nc <- open.nc("data/gof.nc", write = FALSE)  # Put FALSE for read-only
 
 # Compare with gof_noXvalid.nc
 # gof_nc <- open.nc("output/gof_noXvalid.nc", write = FALSE)  # Put FALSE for read-only
@@ -91,8 +91,13 @@ stations.summary.df <- data.frame("Station name" = station$name,
                                   "Max elevation" = station$catchment.max.height
 )
 
-
-source('R/global.R')  # supporting functions for the app
+# supporting functions for the app
+source('R/global.R')  
+source('R/rawdata_plotting.R')
+source('R/mapping.R')
+source('R/main_plotting.R')  # plots for the first "main plots" subtab
+source('R/gof_plotting.R')  # GOF plots
+source('R/rperiods_plotting.R')  # Plots that are a function of return periods (return levels, QS, BS, NT)
 source('R/ui.R')  # User inferface function
 shinyApp(ui, server)  # to run the app
 
@@ -107,6 +112,9 @@ server <- function(session,input, output) {
     updateSelectInput(session, inputId='station', selected =  p$id, 
                       label = "Pick a station", choices = station$number)
   })
+  
+  
+  
   
   # This conditional use of "observe" updates the random runs selection when the "FULL RECORD" is selected
   observe({

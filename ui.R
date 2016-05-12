@@ -133,8 +133,6 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                                               
                                        ),
                                        column(3, wellPanel(
-                                         # actionButton("color4plot", "Plot"),
-                                         
                                          selectInput(inputId='gof2table', selected = 'KS', label='Select a goodness of fit measure to summarize', 
                                                      choices = c('CS', 'KS', 'AD')),
                                          
@@ -156,7 +154,7 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                                        column(3, wellPanel(
                                          selectInput(inputId='r.period', selected = 100, label='Which return period to plot?', 
                                                      choices = return.periods)
-                                       )
+                                      )
                                        ),
                                        plotOutput('plot.rlevels', width = "100%", height = "800px")
                                      )
