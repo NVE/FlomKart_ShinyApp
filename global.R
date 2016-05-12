@@ -40,13 +40,21 @@ gof_summary <- function(gof, station) {
 
 gof_summary_rperiods <- function(gof, station, r.period) {
   
-  r.period.index <- which(return.periods == r.period)
+  if (gof == "BS" || gof == "NT") {
+    r.period.index <- which(rperiods.bs == r.period)  
+  } else {r.period.index <- which(return.periods == r.period)}
+  
   gof.table <- data.frame(gum = rep(NA,4), gam = rep(NA,4), gev = rep(NA,4), glo = rep(NA,4), pe3 = rep(NA,4))
   row.names(gof.table) <- method.name
   for (m in seq(along = method.name)) {
     for (d in seq(along = distr.name)) {
+      if (gof == "r.levels") {
       gof.table[m,d] <- round(var.get.nc(gof_nc, gof, start = c(station, d, m, 30, 1, r.period.index),
                                          count = c(1, 1, 1, 1, 1, 1)), 0)  # in dataframe [row, column]
+      } else {
+      gof.table[m,d] <- round(var.get.nc(gof_nc, gof, start = c(station, d, m, 30, 1, r.period.index),
+                                           count = c(1, 1, 1, 1, 1, 1)), 2)  # in dataframe [row, column] 
+      }
     }
   }
   invisible(gof.table)

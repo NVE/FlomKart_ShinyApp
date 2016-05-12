@@ -111,7 +111,7 @@ plot4server_gof.rlevels  <- function(station, gof, r.period) {
   }
 }
 
-# Why did I plot NT differently than the other r.levels indices!!
+# NT is plotted differently than the other r.levels indices because it doens't have the extra "few_quantiles" dimension
 plot4server_nt  <- function(station, gof, r.period) { 
   
   r.period.index <- which(rperiods.bs == r.period)  
@@ -354,7 +354,7 @@ plot4server_rlevels_coeffvar_ave  <- function(gof, r.period, min_years, max_year
   
   print(gof)
   print(r.period)
-  if (gof == "BS") {
+  if (gof == "BS" || gof == "NT") {
     r.period.index <- which(rperiods.bs == r.period)  
   } else {r.period.index <- which(return.periods == r.period)}
   

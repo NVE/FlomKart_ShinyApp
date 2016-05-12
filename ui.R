@@ -8,28 +8,28 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                           fluidRow(
                             
                             HTML('
-                                 <p style="text-align:justify"> This app lets you explore various frequency analysis options for fitting flood data in Norway </p>
+                                 <p style="margin-left:1em; style="text-align:justify"> This app lets you explore various frequency analysis options for fitting flood data in Norway </p>
                                  
-                                 <p style="text-align:justify"> <b> Research questions </b> </p>
+                                 <p style="margin-left:1em; style="text-align:justify"> <b> Research questions </b> </p>
                                  
-                                 <p style="text-align:justify"> Which distribution gives the best fit to the data? </p>
-                                 <p style="text-align:justify"> Which estimation method provides the best fit to the data? </p>
-                                 <p style="text-align:justify"> Does the answer depend on local data availability? </p>
+                                 <p style="margin-left:1em; style="text-align:justify"> Which distribution gives the best fit to the data? </p>
+                                 <p style="margin-left:1em; style="text-align:justify"> Which estimation method provides the best fit to the data? </p>
+                                 <p style="margin-left:1em; style="text-align:justify"> Does the answer depend on local data availability? </p>
                         
-                          <p style="text-align:justify"> <big> <b> Probability distributions </b> </big> </p>
+                          <p style="margin-left:1em; style="text-align:justify"> <big> <b> Probability distributions </b> </big> </p>
                           <div> <dl>
-                        <p style="text-align:justify"> Gamma </p>
-                        <p style="text-align:justify"> Gumbel </p>
-                        <p style="text-align:justify"> GEV: Generalized extreme value </p>
-                        <p style="text-align:justify"> GL: Generalized logistics </p>
-                        <p style="text-align:justify"> Pearson III </p>
-</div> </dl>                          
+                        <p style="margin-left:1em; style="text-align:justify"> Gamma </p>
+                        <p style="margin-left:1em; style="text-align:justify"> Gumbel </p>
+                        <p style="margin-left:1em; style="text-align:justify"> GEV: Generalized extreme value </p>
+                        <p style="margin-left:1em; style="text-align:justify"> GL: Generalized logistics </p>
+                        <p style="margin-left:1em; style="text-align:justify"> Pearson III </p>
+                          </div> </dl>                          
 
-<p style="text-align:justify"> <b> Estimations methods </b> </p>
-                          <p style="text-align:justify"> MLE : maximum likelihood estimation </p>
-                          <p style="text-align:justify"> Lmom: Linear moments </p>
-                          <p style="text-align:justify"> MOM: Ordinary moments </p>
-                        <p style="text-align:justify"> Bayesian estimation </p>'
+                        <p style="margin-left:1em; style="text-align:justify"> <b> Estimations methods </b> </p>
+                          <p style="margin-left:1em; style="text-align:justify"> MLE : maximum likelihood estimation </p>
+                          <p style="margin-left:1em; style="text-align:justify"> Lmom: Linear moments </p>
+                          <p style="margin-left:1em; style="text-align:justify"> MOM: Ordinary moments </p>
+                        <p style="margin-left:1em; style="text-align:justify"> Bayesian estimation </p>'
                                  
                                  
                             )),
@@ -50,10 +50,14 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                             )
                             ),
                             column(3, wellPanel(
-                              selectInput(inputId='max_years', selected = '1000', label='Select the catchment minimum elevation', 
+                              selectInput(inputId='max_height', selected = '1000', label='Select the catchment minimum elevation', 
                                           choices = seq(0,2500,500))
                             )
                             )
+                          ),
+                          fluidRow(
+                            column(3,plotOutput('qdata_boxplot', width = "100%", height = "100px"))
+                            
                           )
                  ),
                  
@@ -68,7 +72,37 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                             tabPanel("Main plots",
                                      
                                      fluidRow(
+                                      
+                                       column(2, wellPanel(
+                                         selectInput(inputId='station', selected =  station$number[37], 
+                                                     label = "Pick a station", choices = station$number)
+                                       )
+                                       ),
+                                       bsTooltip("station", "A station can also be selected by clicking on its marker in the map below", "bottom", options = list(container="body")),
                                        
+                                       column(2, wellPanel(
+                                         selectInput(inputId='distr', selected = 'gamma', label='Probability distribution', 
+                                                     choices = distr.name)
+                                       )
+                                       ),
+                                       bsTooltip("distr", "Gamma and gumbel are 2-parameter distributions, the others use 3", "top", options = list(container="body")),
+                                       column(2, wellPanel(
+                                         selectInput(inputId='method', label = "Estimation method", choices = method.name)
+                                       )
+                                       ),
+
+                                       
+                                       column(2, wellPanel(
+                                         selectInput(inputId='length', label = "Choose a record length", selected = 30,
+                                                     choices = c('FULL RECORD', sampling_years))  # Sampling years should be recalculated by the app
+                                         
+                                       )
+                                       ),
+                                       column(2, wellPanel(
+                                         uiOutput("random.panel") 
+                                       )
+                                       ),
+
                                        column(2, wellPanel(actionButton("help_loc_btn", "About this tab", class="btn-block"), br())),
                                        bsModal("modal_loc", "About", "help_loc_btn", size="large",
                                                HTML('
@@ -81,36 +115,8 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                                                               <p style="text-align:justify"> Does the answer depend on local data availability? </p>'
                                                     
                                                     
-                                               )),                                  
-                                       
-                                       column(2, wellPanel(
-                                         selectInput(inputId='distr', selected = 'gamma', label='Select a probability distribution', 
-                                                     choices = distr.name)
-                                       )
+                                               ))
                                        ),
-                                       column(2, wellPanel(
-                                         selectInput(inputId='method', label = "Select an estimation method", choices = method.name)
-                                       )
-                                       ),
-                                       column(2, wellPanel(
-                                         selectInput(inputId='station', selected =  station$number[37], 
-                                                     label = "Pick a station", choices = station$number)
-                                       )
-                                       ),
-                                       
-                                       column(2, wellPanel(
-                                         selectInput(inputId='length', label = "Choose a record length", selected = 30,
-                                                     choices = c('FULL RECORD', sampling_years))  # Sampling years should be recalculated by the app
-                                         
-                                       )
-                                       ),
-                                       column(2, wellPanel(
-                                         uiOutput("random.panel") 
-                                       )
-                                       ),
-                                       bsTooltip("distr", "Gamma and gumbel are 2-parameter distributions, the others use 3", "bottom", options = list(container="body")),
-                                       bsTooltip("station", "A station can also be selected by clicking on its marker in the map below", "bottom", options = list(container="body"))
-                                     ),
                                      
                                      
                                      fluidRow(
@@ -134,15 +140,18 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                                        ),
                                        column(3, wellPanel(
                                          selectInput(inputId='gof2table', selected = 'KS', label='Select a goodness of fit measure to summarize', 
-                                                     choices = c('CS', 'KS', 'AD')),
+                                                     choices = c('CS', 'KS', 'AD'))),
+                                         wellPanel(),
+                                         wellPanel(
                                          
                                          selectInput(inputId='gof2table2', selected = 'r.levels', label='Select a goodness of fit measure to summarize', 
                                                      choices = c('r.levels', 'QS', 'BS')),
                                          
-                                         selectInput(inputId='r.period4table', selected = 100, label='Choose a return period for the table', 
-                                                     choices = return.periods)
+#                                          selectInput(inputId='r.period4table', selected = 100, label='Choose a return period for the table', 
+#                                                      choices = return.periods)
                                          
-                                       )
+                                         uiOutput("r.period4table") 
+                                         )
                                        
                                        ),
                                        column(4, leafletOutput('map'))
@@ -152,62 +161,94 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                             tabPanel("Return levels",
                                      fluidRow(
                                        column(3, wellPanel(
+                                         selectInput(inputId='station4rlevels', selected =  station$number[37], 
+                                                     label = "Pick a station", choices = station$number)
+                                       )),
+                                       column(3, wellPanel(
                                          selectInput(inputId='r.period', selected = 100, label='Which return period to plot?', 
                                                      choices = return.periods)
                                       )
-                                       ),
-                                       plotOutput('plot.rlevels', width = "100%", height = "800px")
-                                     )
+                                       )
+                                      ),
+                                      
+                                      
+                                     fluidRow(plotOutput('plot.rlevels', width = "100%", height = "900px"))
+                                     
                             ), # closing tab
                             
                             tabPanel("Quantile score",
                                      fluidRow(
                                        column(3, wellPanel(
+                                         selectInput(inputId='station4qs', selected =  station$number[37], 
+                                                     label = "Pick a station", choices = station$number)
+                                       )),
+                                       column(3, wellPanel(
                                          selectInput(inputId='r.period4qs', selected = 100, label='Which return period to plot?', 
                                                      choices = return.periods)
                                        )
+                                       )
                                        ),
-                                       plotOutput('plot.qs', width = "100%", height = "800px")
-                                     )
+                                     fluidRow(plotOutput('plot.qs', width = "100%", height = "900px"))
+                                     
                             ), # closing tab
                             
                             tabPanel("Brier score",
                                      fluidRow(
                                        column(3, wellPanel(
+                                         selectInput(inputId='station4bs', selected =  station$number[37], 
+                                                     label = "Pick a station", choices = station$number)
+                                       )),
+                                       column(3, wellPanel(
                                          selectInput(inputId='r.period4bs', selected = 10, label='Which return period to plot?', 
                                                      choices = rperiods.bs)
                                        )
+                                       )
                                        ),
-                                       plotOutput('plot.bs', width = "100%", height = "800px")
-                                     )
+                                     fluidRow(plotOutput('plot.bs', width = "100%", height = "900px"))
+                                     
                             ), # closing tab
                             tabPanel("NT",
                                      fluidRow(
                                        column(3, wellPanel(
+                                         selectInput(inputId='station4nt', selected =  station$number[37], 
+                                                     label = "Pick a station", choices = station$number)
+                                       )),
+                                       column(3, wellPanel(
                                          selectInput(inputId='r.period4nt', selected = 10, label='Which return period to plot?', 
                                                      choices = rperiods.bs)
                                        )
+                                       )
                                        ),
-                                       plotOutput('plot.nt', width = "100%", height = "800px")
-                                     )
+                                       fluidRow(plotOutput('plot.nt', width = "100%", height = "900px"))
+                                     
                             ), # closing tab
                             
                             tabPanel("Coefficients of variation",
                                      fluidRow(
                                        column(3, wellPanel(
-                                         selectInput(inputId='r.period4coefvar', selected = 100, label='Which return period to plot?', 
-                                                     choices = return.periods)
+                                         selectInput(inputId='station4cv', selected =  station$number[37], 
+                                                     label = "Pick a station", choices = station$number)
+                                       )),
+                                       column(3, wellPanel(
+                                         uiOutput("r.period4coefvar") 
                                        )
                                        ),
                                        column(3, wellPanel(
                                          selectInput(inputId='coeffvar2plot', selected = 'r.levels', label='Select a goodness of fit measure to summarize', 
                                                      choices = c('r.levels', 'QS', 'BS'))
-                                       )),
-                                       
-                                       plotOutput('plot.rlevels_coeff', width = "100%", height = "800px")
-                                     )
+                                       ))
+                                       ),
+                                       fluidRow(plotOutput('plot.rlevels_coeff', width = "100%", height = "900px"))
+                                     
                             ), # closing tab
                             tabPanel("Kolmogorov Smirnoff",
+                                     fluidRow(
+                                       column(3, wellPanel(
+                                         selectInput(inputId='station4ks', selected =  station$number[37], 
+                                                     label = "Pick a station", choices = station$number)
+                                       )
+                                       )
+                                     ),
                                      fluidRow(
                                        plotOutput('plot.ks', width = "100%", height = "900px")
                                      )
@@ -215,11 +256,25 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                             
                             tabPanel("Anderson Darling",
                                      fluidRow(
+                                       column(3, wellPanel(
+                                         selectInput(inputId='station4ad', selected =  station$number[37], 
+                                                     label = "Pick a station", choices = station$number)
+                                       )
+                                       )
+                                     ),
+                                     fluidRow(
                                        plotOutput('plot.ad', width = "100%", height = "900px")
                                      )
                             ), # closing tab
                             
                             tabPanel("Chi Square",
+                                     fluidRow(
+                                       column(3, wellPanel(
+                                         selectInput(inputId='station4cs', selected =  station$number[37], 
+                                                     label = "Pick a station", choices = station$number)
+                                       )
+                                       )
+                                     ),
                                      fluidRow(
                                        plotOutput('plot.cs', width = "100%", height = "900px")
                                      )
@@ -231,9 +286,9 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                             tabPanel("Station-averaged CV",
                                      fluidRow(
                                        column(3, wellPanel(
-                                         selectInput(inputId='r.period4coefvar_ave', selected = 100, label='Which return period to plot?', 
-                                                     choices = return.periods)
+                                         uiOutput("r.period4coefvar_ave") 
                                        )
+                                       
                                        ),
                                        column(3, wellPanel(
                                          selectInput(inputId='coeffvar2plot_ave', selected = 'r.levels', label='Select a goodness of fit measure to summarize', 

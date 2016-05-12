@@ -45,15 +45,13 @@ dim.random_runs <- var.get.nc(nc, "dim.random_runs")
 sampling_years <<- var.get.nc(nc, "sampling_years")
 sampling_years_full_record <- c(as.character(sampling_years), NA, NA, NA, NA, NA, NA, "FULL RECORD")
 
-rperiods.bs <- c(2,5,10,15,20,30)
+rperiods.bs <- c(2,5,10,15,20,30)  # Those are return periods for BS ans NT. They should be saved in the NetCDF
+
+## How can the following be replaced by apply (# station$length_rec <- apply(na.omit(Q), length...)?)
 station$length_rec <- as.vector(rep(NA,length(station$number)))
-
-# station$length_rec <- sapply(na.omit(Q), length)
-
 
 for (st in seq(along = station$number)) {
   station$length_rec[st] <- length(as.vector(na.omit(Q[st, ])))
-  
 }
 
 keep <- which(!is.na(station$lat + station$long))
@@ -78,8 +76,6 @@ gev.shape.estimate <- var.get.nc(nc, "param.estimate",
                                  start = c(1, 3, 1, 3, 30, 1), # from each station, distr number 3, 
                                  # method number 1 to 4, parameter number 3, full length o record, random run number 1 
                                  count = c(length(station$name), 1, 4, 1, 1, 1) ) 
-
-
 
 # Create here the data frame that will be use in DT tables in the code
 stations.summary.df <- data.frame("Station name" = station$name, 
@@ -113,7 +109,79 @@ server <- function(session,input, output) {
                       label = "Pick a station", choices = station$number)
   })
   
-  
+  # change the station selection on the first tab when a new station is selected in the rlevels tab
+  observeEvent(input$station4rlevels, { 
+    updateSelectInput(session, inputId='station', selected = input$station4rlevels, 
+                      label = "Pick a station", choices = station$number)
+  })
+  # and accordingly change the station selection in the rlevels tab when a new station is selected in the main tab
+  observeEvent(input$station, { 
+    updateSelectInput(session, inputId='station4rlevels', selected = input$station, 
+                      label = "Pick a station", choices = station$number)
+  })
+  # Same thing for BS
+  observeEvent(input$station4bs, { 
+    updateSelectInput(session, inputId='station', selected = input$station4bs, 
+                      label = "Pick a station", choices = station$number)
+  })
+  observeEvent(input$station, { 
+    updateSelectInput(session, inputId='station4bs', selected = input$station, 
+                      label = "Pick a station", choices = station$number)
+  })
+  # Same thing for QS
+  observeEvent(input$station4qs, { 
+    updateSelectInput(session, inputId='station', selected = input$station4qs, 
+                      label = "Pick a station", choices = station$number)
+  })
+  observeEvent(input$station, { 
+    updateSelectInput(session, inputId='station4qs', selected = input$station, 
+                      label = "Pick a station", choices = station$number)
+  })
+  # Same thing for NT
+  observeEvent(input$station4nt, { 
+    updateSelectInput(session, inputId='station', selected = input$station4nt, 
+                      label = "Pick a station", choices = station$number)
+  })
+  observeEvent(input$station, { 
+    updateSelectInput(session, inputId='station4nt', selected = input$station, 
+                      label = "Pick a station", choices = station$number)
+  })
+  # Same thing for CV
+  observeEvent(input$station4cv, { 
+    updateSelectInput(session, inputId='station', selected = input$station4cv, 
+                      label = "Pick a station", choices = station$number)
+  })
+  observeEvent(input$station, { 
+    updateSelectInput(session, inputId='station4cv', selected = input$station, 
+                      label = "Pick a station", choices = station$number)
+  })
+  # Same thing for KS
+  observeEvent(input$station4ks, { 
+    updateSelectInput(session, inputId='station', selected = input$station4ks, 
+                      label = "Pick a station", choices = station$number)
+  })
+  observeEvent(input$station, { 
+    updateSelectInput(session, inputId='station4ks', selected = input$station, 
+                      label = "Pick a station", choices = station$number)
+  })
+  # Same thing for AD
+  observeEvent(input$station4ad, { 
+    updateSelectInput(session, inputId='station', selected = input$station4ad, 
+                      label = "Pick a station", choices = station$number)
+  })
+  observeEvent(input$station, { 
+    updateSelectInput(session, inputId='station4ad', selected = input$station, 
+                      label = "Pick a station", choices = station$number)
+  })
+  # Same thing for CS
+  observeEvent(input$station4cs, { 
+    updateSelectInput(session, inputId='station', selected = input$station4cs, 
+                      label = "Pick a station", choices = station$number)
+  })
+  observeEvent(input$station, { 
+    updateSelectInput(session, inputId='station4cs', selected = input$station, 
+                      label = "Pick a station", choices = station$number)
+  })
   
   
   # This conditional use of "observe" updates the random runs selection when the "FULL RECORD" is selected
@@ -134,6 +202,46 @@ server <- function(session,input, output) {
     } 
   }) 
   
+  ## Conditional use of observe for the special return periods of BS and NT
+  observe({
+    if(input$coeffvar2plot_ave == "BS" || input$coeffvar2plot_ave == "NT") { 
+      output$r.period4coefvar_ave <- renderUI({ selectInput(inputId='r.period4coefvar_ave', selected =  10, 
+                                                    label = "Which return period to plot?", choices = rperiods.bs)
+      })  
+
+    } else {
+      output$r.period4coefvar_ave <- renderUI({ selectInput('r.period4coefvar_ave', selected = 100, label='Which return period to plot?', 
+                                                                        choices = return.periods)
+      })
+    } 
+  }) 
+  ## Same thing for BS only in the single station CV
+  observe({
+    if(input$coeffvar2plot == "BS") { 
+      output$r.period4coefvar <- renderUI({ selectInput(inputId='r.period4coefvar', selected =  10, 
+                                                            label = "Which return period to plot?", choices = rperiods.bs)
+      })  
+      
+    } else {
+      output$r.period4coefvar <- renderUI({ selectInput('r.period4coefvar', selected = 100, label='Which return period to plot?', 
+                                                            choices = return.periods)
+      })
+    } 
+  }) 
+  ## Same thing for BS in the main subtab selection for the table
+  observe({
+    if(input$gof2table2 == "BS") { 
+      output$r.period4table <- renderUI({ selectInput(inputId='r.period4table', selected =  10, 
+                                                        label = "Choose a return period for the table", choices = rperiods.bs)
+      })  
+      
+    } else {
+      output$r.period4table <- renderUI({ selectInput('r.period4table', selected = 100, label='Choose a return period for the table', 
+                                                        choices = return.periods)
+      })
+    } 
+  }) 
+
   ## Below are reactive variables based on inputs selected in the UI ------------------
   
   old_station.index <- reactive({ station$index[which(station$number == input$station)]  
@@ -161,6 +269,9 @@ server <- function(session,input, output) {
   }) 
   
   ## Rendering of the goodness of fit plots for the related GOF tabs -------------------
+  output$qdata_boxplot <- renderPlot({
+    qdata_boxplot(input$min_years, input$max_years, input$min_height, input$max_height )
+  })
   
   output$plot.ks <- renderPlot({
     plot4server_gof(old_station.index(), "KS")
@@ -284,13 +395,7 @@ server <- function(session,input, output) {
     #      backgroundColor = styleInterval(3.4, c('white', 'grey'))
     #    )  # Can be used for additional styling
   })
-  
-  ## EXPERIMENTAL : trying to link selected rows to stations in the map DOESNT WORK WITH THIS VERSION OF DT
-  # and the dev version of DT did not work on my computer
-  #   output$map4table <- renderLeaflet({
-  #     norway_map4server(input$test.table_rows_selected)
-  #   })
-  
+
   # Computing a reactive group of stations based on best gof performance
   st_group.indexes <- reactive({ station_group_indexes(input$gof4st_groups, input$distr4st_groups, input$method4st_groups, input$minmax)
   })
@@ -322,81 +427,3 @@ server <- function(session,input, output) {
 ## Run the app!  ---------------
 shinyApp(ui, server)
 
-
-
-
-
-
-
-
-
-
-
-##################
-
-# example use of formattable
-# df <- data.frame(
-#   id = 1:10,
-#   name = c("Bob", "Ashley", "James", "David", "Jenny", 
-#            "Hans", "Leo", "John", "Emily", "Lee"), 
-#   age = c(28, 27, 30, 28, 29, 29, 27, 27, 31, 30),
-#   grade = c("C", "A", "A", "C", "B", "B", "B", "A", "C", "C"),
-#   test1_score = c(8.9, 9.5, 9.6, 8.9, 9.1, 9.3, 9.3, 9.9, 8.5, 8.6),
-#   test2_score = c(9.1, 9.1, 9.2, 9.1, 8.9, 8.5, 9.2, 9.3, 9.1, 8.8),
-#   final_score = c(9, 9.3, 9.4, 9, 9, 8.9, 9.25, 9.6, 8.8, 8.7),
-#   registered = c(TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE),
-#   stringsAsFactors = FALSE)
-# 
-# 
-# formattable(df, list(
-#   age = color_tile("white", "orange"),
-#   grade = formatter("span",
-#                     style = x ~ ifelse(x == "A", style(color = "green", font.weight = "bold"), NA)),
-#   final_score = formatter("span",
-#                           style = x ~ style(color = ifelse(rank(-x) <= 3, "green", "gray")),
-#                           x ~ sprintf("%.2f (rank: %02d)", x, rank(-x))),
-#   registered = formatter("span", 
-#                          style = x ~ style(color = ifelse(x, "green", "red")))
-# )
-# )
-
-
-# I tried to install the development version of DT for the Buttons feature, but it didn't work. maybe for later
-# install.packages('devtools')
-# devtools::install_github('rstudio/DT')
-
-# example use of DT with highlighting. Looks like a nice way to highlight cells
-library('shinydashboard')
-header <- dashboardHeader()
-
-sidebar <- dashboardSidebar()
-
-body <- dashboardBody(
-  DT::dataTableOutput("mtcarsTable")
-)
-
-shinyApp(
-  ui = dashboardPage(header, sidebar, body),
-  server = function(input, output) {
-    
-    output$mtcarsTable <- renderDataTable({
-      DT::datatable(datasets::mtcars, 
-                    options = list(rowCallback = JS('
-            function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                                      // Bold and green cells for conditions
-                                      if (parseFloat(aData[3]) >= 200)
-                                      $("td:eq(3)", nRow).css("font-weight", "bold");
-                                      if (parseFloat(aData[3]) >= 100)
-                                      $("td:eq(3)", nRow).css("background-color", "#9BF59B");
-                                       }')
-                    )
-      )
-    })
-  }
-)
-
-# shinyjs is installed, it could be interesting
-
-# sparkline to check, could be good complement of DT tables 
-# library(devtools)
-# install_github('htmlwidgets/sparkline')
