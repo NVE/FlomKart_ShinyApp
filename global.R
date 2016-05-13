@@ -110,6 +110,25 @@ station_group_indexes <- function(gof, distr, method, minmax) {
   invisible(group.indexes)
 }
 
+# This function extracts the station indexes corresponding to the user's choices for the first tab
+station_group_indexes_first_tab <- function(min_years, max_years, min_height, max_height) {
+
+  group.indexes <- rep(NA,length(station$number))
+  
+  group.indexes <- which(station$length_rec > min_years)
+  group.indexes <- intersect(group.indexes, which(station$length_rec < max_years))
+  group.indexes <- intersect(group.indexes, which(station$catchment.min.height > min_height))
+  group.indexes <- intersect(group.indexes, which(station$catchment.max.height < max_height))
+  
+  
+  
+}
+
+
+
+
+
+
 # Function for updating the df to put in the interactive table
 group.dfmaker <- function(group.indexes) {
   

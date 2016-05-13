@@ -49,6 +49,8 @@ norway_map4groups <- function(group.index) {
   library(leaflet)
   library(magrittr)
   
+  print(group.index)
+  
   group.name <- station$name[group.index]
   group.nve_nb <- station$nve_nb[group.index]
   group.long <- station$long[group.index]

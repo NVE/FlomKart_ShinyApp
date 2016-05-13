@@ -6,7 +6,7 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                  
                  tabPanel("About", icon = icon("info"),
                           fluidRow(
-                            
+                            column(8, wellPanel(
                             HTML('
                                  <p style="margin-left:1em; style="text-align:justify"> This app lets you explore various frequency analysis options for fitting flood data in Norway </p>
                                  
@@ -31,8 +31,10 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                           <p style="margin-left:1em; style="text-align:justify"> MOM: Ordinary moments </p>
                         <p style="margin-left:1em; style="text-align:justify"> Bayesian estimation </p>'
                                  
-                                 
-                            )),
+                            ))    
+                            ),
+                            column(4, leafletOutput('map.groups_first.tab'))
+                            ),
                           fluidRow(
                             column(3, wellPanel(
                               selectInput(inputId='min_years', selected = '60', label='Select a minimum number of years', 
@@ -50,13 +52,15 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                             )
                             ),
                             column(3, wellPanel(
-                              selectInput(inputId='max_height', selected = '1000', label='Select the catchment minimum elevation', 
+                              selectInput(inputId='max_height', selected = '1000', label='Select the catchment maximum elevation', 
                                           choices = seq(0,2500,500))
                             )
                             )
                           ),
                           fluidRow(
-                            column(3,plotOutput('qdata_boxplot', width = "100%", height = "100px"))
+                            column(3,plotOutput('qdata_boxplot')),
+                            column(3,plotOutput('qdata_barplot'))
+                            # Map based on the selected min/max variables
                             
                           )
                  ),

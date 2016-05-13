@@ -1,9 +1,9 @@
 # Server file for Shiny App
 # Be careful to update the directories
 
-rm(list = ls())  # clean out workspace and set working directory
+rm(list = ls())  # clean out workspace and set working directorY
 
-setwd('C:/Users/flbk/Documents/GitHub/FlomKart_ShinyApp')
+setwd('C:/Users/flbk/Documents/GitHub/FlomKart_ShinyApp')  # CHECK DIR
 
 library(shiny)        # TO run the app!
 library(leaflet)      # For the interactive map    
@@ -16,8 +16,8 @@ library(DT)         # for the data tables
 library(shinyBS)      # for the interactive popover features
 
 
-nc <- open.nc("data/flood_database.nc", write = FALSE)  # Put FALSE for read-only
-gof_nc <- open.nc("data/gof.nc", write = FALSE)  # Put FALSE for read-only
+nc <- open.nc("data/flood_database.nc", write = FALSE)  # Put FALSE for read-only  # CHECK DIR
+gof_nc <- open.nc("data/gof.nc", write = FALSE)  # Put FALSE for read-only  # CHECK DIR
 
 # Compare with gof_noXvalid.nc
 # gof_nc <- open.nc("output/gof_noXvalid.nc", write = FALSE)  # Put FALSE for read-only
@@ -85,7 +85,7 @@ stations.summary.df <- data.frame("Station name" = station$name,
                                   "Catchment area" = station$catchment.size,
                                   "Min elevation" = station$catchment.min.height,
                                   "Max elevation" = station$catchment.max.height
-)
+                                  )
 
 # supporting functions for the app
 source('R/global.R')  
@@ -268,11 +268,16 @@ server <- function(session,input, output) {
                                           count = c(1, 1, 1, 3, 1, 1)) 
   }) 
   
-  ## Rendering of the goodness of fit plots for the related GOF tabs -------------------
+  ## Rendering plots of the first tab
   output$qdata_boxplot <- renderPlot({
-    qdata_boxplot(input$min_years, input$max_years, input$min_height, input$max_height )
+    qdata_boxplot(input$min_years, input$max_years, input$min_height, input$max_height)
   })
+  output$qdata_barplot <- renderPlot({
+    qdata_barplot(input$min_years, input$max_years, input$min_height, input$max_height)
+  })
+
   
+  ## Rendering of the goodness of fit plots for the related GOF tabs -------------------
   output$plot.ks <- renderPlot({
     plot4server_gof(old_station.index(), "KS")
   })
@@ -400,11 +405,22 @@ server <- function(session,input, output) {
   st_group.indexes <- reactive({ station_group_indexes(input$gof4st_groups, input$distr4st_groups, input$method4st_groups, input$minmax)
   })
   
+  # Computing a reactive group of stations based on slection in first tab
+  st_group_first_tab.indexes <- reactive({ station_group_indexes_first_tab(input$min_years, input$max_years, input$min_height, input$max_height)
+  })
+  
   # Mapping the groups of stations that have same best method and distr
   output$map.groups_from_gof <- renderLeaflet({
     norway_map4groups(st_group.indexes())
     
   })
+  
+  # Mapping common stations for the first tab
+  output$map.groups_first.tab <- renderLeaflet({
+  norway_map4groups(st_group_first_tab.indexes())
+    
+  })
+  
   
   # Table for the mapped stations
   output$group.table <- DT::renderDataTable({

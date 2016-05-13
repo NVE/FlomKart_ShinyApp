@@ -11,18 +11,38 @@
 # hist(length_dat, breaks = 20 , xlab = "Lenth of flood record", ylab = "Number of stations", main= "", cex.lab = 1.5)
 # 
 
-
 ########################################## TEST OF BOX PLOT FOR ALL STATIONS THAT HAVE MORE THAN N data
 qdata_boxplot <- function(min_years, max_years, min_height, max_height ) {
   
+  keep <- c()
   keep <- which(station$length_rec > min_years)
-#   keep <- intersect(keep, which(station$length_rec < max_years))
-#   keep <- intersect(keep, which(station$catchment.min.height > min_height))
-#   keep <- intersect(keep, which(station$catchment.max.height < max_height))
+  print(keep)
+  keep <- intersect(keep, which(station$length_rec < max_years))
+  print(keep)
+  keep <- intersect(keep, which(station$catchment.min.height > min_height))
+  print(keep)
+  keep <- intersect(keep, which(station$catchment.max.height < max_height))
 
   print(keep)
-  boxplot(sort(Q[keep, ], decreasing = TRUE), horizontal = TRUE)
+#   par(las = 1)
+  if (length(keep > 0)) {
+    
+    boxplot(sort(Q[keep, ], decreasing = TRUE), horizontal = TRUE, outwex = TRUE)    
+  }
+
+#   
+  # boxplot(sort(Q[keep, ], decreasing = TRUE), horizontal = TRUE, outwex = TRUE, names = "dff")
+}  
+
+qdata_barplot <- function(min_years, max_years, min_height, max_height ) {
+    keep <- c()
+    keep <- which(station$length_rec > min_years)
+    plot(Q[keep, ], seq(0,150,1))
+    # plot(Q[1, ])
   
+}
+
+
 #   flood_list <- list()
 #   station_list <- c()
 #   for (i in 1:length(station.nb.vect)) {
@@ -53,4 +73,3 @@ qdata_boxplot <- function(min_years, max_years, min_height, max_height ) {
   
 
   
-}
