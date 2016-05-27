@@ -415,6 +415,17 @@ server <- function(session,input, output) {
     
   })
   
+  # Mapping the values of a specific parameter for a specific set of distr/method
+  output$map.param_values <- renderLeaflet({
+    norway_map4param_values(input$dist4param_maps, input$method4param_maps, input$param4param_maps)
+    
+  })
+  
+  # Plotting the histogram of the paramter values (goes along the map above)
+  output$param.histo <- renderPlot({ 
+    histo4param_values(input$dist4param_maps, input$method4param_maps, input$param4param_maps)
+    })
+  
   # Mapping common stations for the first tab
   output$map.groups_first.tab <- renderLeaflet({
   norway_map4groups(st_group_first_tab.indexes())

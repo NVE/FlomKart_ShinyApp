@@ -377,6 +377,35 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                                        
                                        
                                      )
+                            ),
+                            tabPanel("Mapping parameter values",  
+                                     
+                                     fluidRow( 
+                                       column(3, wellPanel(
+                                         selectInput(inputId='dist4param_maps', selected = 'GEV', label='Select a distribution', 
+                                                     choices = distr.name)
+                                       )
+                                       ),
+                                       column(3, wellPanel(
+                                         selectInput(inputId='method4param_maps', selected = 'mle', label = "Select an estimation method", choices = method.name )
+                                       )  
+                                       ),
+                                       column(3, wellPanel(
+                                         selectInput(inputId='param4param_maps', selected = 1, label = "Which parameter to map", choices = c(1, 2, 3) )
+                                       ) 
+                                       )
+
+                                     ),
+                                     fluidRow(         
+                                       column(9, plotOutput('param.histo', width = "100%", height = "800px")
+                                       ),
+                                       column(3,
+                                              h4("Map showing parameter values across Norway"),
+                                              leafletOutput('map.param_values', height = "800px")
+                                       )
+                                       
+                                       
+                                     )
                             ), icon = icon("globe") # closing tab
                  ),  # Closing navbarMenu
                  
