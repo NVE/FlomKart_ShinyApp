@@ -42,7 +42,7 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                             )
                             ),
                             column(3, wellPanel(
-                              selectInput(inputId='max_years', selected = '80', label='Select a maximum number of years', 
+                              selectInput(inputId='max_years', selected = '150', label='Select a maximum number of years', 
                                           choices = c(60,90,120,150))
                             )
                             ),
@@ -52,15 +52,25 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                             )
                             ),
                             column(3, wellPanel(
-                              selectInput(inputId='max_height', selected = '1000', label='Select the catchment maximum elevation', 
+                              selectInput(inputId='max_height', selected = '2500', label='Select the catchment maximum elevation', 
                                           choices = seq(0,2500,500))
                             )
                             )
                           ),
                           fluidRow(
                             column(3,plotOutput('qdata_boxplot')),
-                            column(3,plotOutput('qdata_barplot'))
-                            # Map based on the selected min/max variables
+                            column(3,plotOutput('qdata_barplot')),
+                           
+                            column(3, wellPanel(
+                              selectInput(inputId='region', selected = '0', label='Or select a region', 
+                                          choices = c(1, 2, 3, 4, 5, 6, 7, "ALL"))
+                            )
+                            ),
+                            column(3, wellPanel(
+                              selectInput(inputId='station4region', selected = '1', label='Select a specific station', 
+                                          choices = c("0001", "0002"))
+                            )
+                            )
                             
                           )
                  ),

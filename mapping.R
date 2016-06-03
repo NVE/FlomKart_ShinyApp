@@ -45,6 +45,7 @@ norway_map4server <- function(selected.station) {
 
 norway_map4groups <- function(group.index) {
 
+  print("in norway_map4groups function")
   print(group.index)
   
   group.name <- station$name[group.index]
@@ -94,6 +95,8 @@ norway_map4param_values <- function(distr, method, param) {
                                count = c(1, 1, 1, 1, 1, 1))) 
   }
   
+  if (length(param.vector) > 0) {
+  
   my.colors <- c("black", "gray", "brown", "red", "orange", "purple", "blue",  "cyan", "green", "pink")
   # my.colors <- heat.colors(10)
   
@@ -102,7 +105,7 @@ norway_map4param_values <- function(distr, method, param) {
      color.vector <- my.colors[trunc(( x2plot - min(x2plot) ) / (color.bins[2] - color.bins[1])) + 1]
     invisible(color.vector)
   }
-  color.bins <- seq(min(param.vector), max(param.vector), length.out = 11)
+  color.bins <- seq(min(na.omit(param.vector)), max(na.omit(param.vector)), length.out = 11)
   
   
   map <- leaflet() %>% addTiles()
@@ -111,13 +114,16 @@ norway_map4param_values <- function(distr, method, param) {
   addCircleMarkers(map, data = station, lng = ~ long, lat = ~ lat, 
                    popup = paste("Name:", as.character(station$name), "Number:", station$number,
                                  "Param value:", param.vector, sep = " "), radius = 5, 
-                   color = ~my.color.func(param.vector, my.colors), stroke = FALSE, fillOpacity = 0.5,
+                   color = ~my.color.func(na.omit(param.vector), my.colors), stroke = FALSE, fillOpacity = 0.5,
                    layerId = station$number) %>%
     
     addLegend(position = "bottomright", colors = my.colors, labels = c("0-0.1", "0.1-0.2", "0.2-0.3", 
                                                                        "0.3-0.4", "0.4-0.5", "0.5-0.6", "0.6-0.7", "0.7-0.8", "0.8-0.9", "0.9-1"),
               title = "Parameter values, relative to min/max interval",
               opacity = 1)
+  } else {map <- leaflet() %>% addTiles()
+  setView(map, 13, 64, zoom = 5) }
+  
   
 }
 
@@ -134,6 +140,8 @@ histo4param_values <- function(distr, method, param) {
                                                start = c(i, distr.index, method.index, param, 30, 1), 
                                                count = c(1, 1, 1, 1, 1, 1))) 
   }
-  
-  hist(param.vector)
+  if (length(param.vector) > 0) {
+    hist(param.vector)
+  }
+
 }

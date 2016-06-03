@@ -16,19 +16,27 @@ qdata_boxplot <- function(min_years, max_years, min_height, max_height ) {
   
   keep <- c()
   keep <- which(station$length_rec > min_years)
-  print(keep)
   keep <- intersect(keep, which(station$length_rec < max_years))
-  print(keep)
   keep <- intersect(keep, which(station$catchment.min.height > min_height))
-  print(keep)
   keep <- intersect(keep, which(station$catchment.max.height < max_height))
-
-  print(keep)
-#   par(las = 1)
-  if (length(keep > 0)) {
+print(keep)
+  
+  if (length(keep) > 0) {
+    norm_Q <- Q[keep, ]/ rowMeans(Q[keep, ], na.rm = TRUE)
+    st_ave.norm_Q <- colMeans(norm_Q, na.rm = TRUE)
     
-    boxplot(sort(Q[keep, ], decreasing = TRUE), horizontal = TRUE, outwex = TRUE)    
+    boxplot(st_ave.norm_Q, horizontal = TRUE, outwex = TRUE) 
+    
+  } else { plot(0, 0)
+    legend("topright", inset = .05, "No stations fitting your selection", xjust = 0.5)
   }
+
+  
+# #   par(las = 1)
+#   if (length(keep > 0)) {
+#     
+#     boxplot(sort(Q[keep, ], decreasing = TRUE), horizontal = TRUE, outwex = TRUE)    
+#   }
 
 #   
   # boxplot(sort(Q[keep, ], decreasing = TRUE), horizontal = TRUE, outwex = TRUE, names = "dff")
@@ -37,9 +45,27 @@ qdata_boxplot <- function(min_years, max_years, min_height, max_height ) {
 qdata_barplot <- function(min_years, max_years, min_height, max_height ) {
     keep <- c()
     keep <- which(station$length_rec > min_years)
-    plot(Q[keep, ], seq(0,150,1))
-    # plot(Q[1, ])
-  
+    keep <- intersect(keep, which(station$length_rec < max_years))
+    keep <- intersect(keep, which(station$catchment.min.height > min_height))
+    keep <- intersect(keep, which(station$catchment.max.height < max_height))
+    print("barplot funciton")
+    print(keep)
+    
+    if (length(keep) > 0) {
+      
+    norm_Q <- Q[keep, ]/ rowMeans(Q[keep, ], na.rm = TRUE)
+    st_ave.norm_Q <- colMeans(norm_Q, na.rm = TRUE)
+    
+    # print(st_ave.norm_Q)
+    
+    barplot(st_ave.norm_Q, width = 1, space = 0)
+    # barplot(na.omit(st_ave.norm_Q), seq(1,150,1))
+    
+    
+    } else { plot(0, 0)
+      legend("topright", inset = .05, "No stations fitting your selection", xjust = 0.5)
+      }
+
 }
 
 

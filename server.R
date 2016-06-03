@@ -3,7 +3,8 @@
 
 rm(list = ls())  # clean out workspace and set working directorY
 
-setwd('C:/Users/flbk/Documents/GitHub/FlomKart_ShinyApp')  # CHECK DIR
+# setwd('C:/Users/flbk/Documents/GitHub/FlomKart_ShinyApp')  # CHECK DIR
+# to consider appDir = getwd()
 
 library(shiny)        # TO run the app!
 library(leaflet)      # For the interactive map    
@@ -15,9 +16,24 @@ library(formattable)  # To add formatting to data tables
 library(DT)         # for the data tables
 library(shinyBS)      # for the interactive popover features
 
+dat <- read.csv("//nve/fil/h/HM/Interne Prosjekter/Flomkart/Model_fitting/Florian/Data/AMS_table_updated.csv", sep=";", as.is=TRUE)  # CHECK DIR
+dat$date_DOGN <- as.POSIXlt(dat$date_DOGN)
+dummy_date <- dat$date_DOGN
+dat$day <- dummy_date$mday        # day of month
+dat$month <- dummy_date$mon + 1     # month of year (zero-indexed)
 
-nc <- open.nc("data/flood_database.nc", write = FALSE)  # Put FALSE for read-only  # CHECK DIR
-gof_nc <- open.nc("data/gof.nc", write = FALSE)  # Put FALSE for read-only  # CHECK DIR
+# dat$year_test <- dummy_date$year+1800  # years since 1900
+# for (i in seq(along = station$number) ) {
+#   Q_years[i, ] <- XXX
+# }
+
+plot(dat$date_DOGN, dat$flom_DOGN)
+
+barplot(dat$flom_DOGN, dat$year)
+
+
+nc <- open.nc("../data/flood_database.nc", write = FALSE)  # Put FALSE for read-only  # CHECK DIR
+gof_nc <- open.nc("../data/gof.nc", write = FALSE)  # Put FALSE for read-only  # CHECK DIR
 
 # Compare with gof_noXvalid.nc
 # gof_nc <- open.nc("output/gof_noXvalid.nc", write = FALSE)  # Put FALSE for read-only
@@ -88,13 +104,13 @@ stations.summary.df <- data.frame("Station name" = station$name,
                                   )
 
 # supporting functions for the app
-source('R/global.R')  
-source('R/rawdata_plotting.R')
-source('R/mapping.R')
-source('R/main_plotting.R')  # plots for the first "main plots" subtab
-source('R/gof_plotting.R')  # GOF plots
-source('R/rperiods_plotting.R')  # Plots that are a function of return periods (return levels, QS, BS, NT)
-source('R/ui.R')  # User inferface function
+source('global.R')  
+source('rawdata_plotting.R')
+source('mapping.R')
+source('main_plotting.R')  # plots for the first "main plots" subtab
+source('gof_plotting.R')  # GOF plots
+source('rperiods_plotting.R')  # Plots that are a function of return periods (return levels, QS, BS, NT)
+source('ui.R')  # User inferface function
 shinyApp(ui, server)  # to run the app
 
 
@@ -270,10 +286,10 @@ server <- function(session,input, output) {
   
   ## Rendering plots of the first tab
   output$qdata_boxplot <- renderPlot({
-    qdata_boxplot(input$min_years, input$max_years, input$min_height, input$max_height)
+    qdata_boxplot(as.numeric(input$min_years), as.numeric(input$max_years), as.numeric(input$min_height), as.numeric(input$max_height))
   })
   output$qdata_barplot <- renderPlot({
-    qdata_barplot(input$min_years, input$max_years, input$min_height, input$max_height)
+    qdata_barplot(as.numeric(input$min_years), as.numeric(input$max_years), as.numeric(input$min_height), as.numeric(input$max_height))
   })
 
   
@@ -342,8 +358,8 @@ server <- function(session,input, output) {
   output$gof.table <- renderFormattable({ 
     
     temp.list <- gof_summary(input$gof2table, old_station.index())
-    print(temp.list$max_gof)
-    print(temp.list$min_gof)
+    # print(temp.list$max_gof)
+    # print(temp.list$min_gof)
     
     formattable(temp.list$gof_table, list(
       # Strangely, the condition didn't work with x == temp.list...
@@ -406,7 +422,8 @@ server <- function(session,input, output) {
   })
   
   # Computing a reactive group of stations based on slection in first tab
-  st_group_first_tab.indexes <- reactive({ station_group_indexes_first_tab(input$min_years, input$max_years, input$min_height, input$max_height)
+  st_group_first_tab.indexes <- reactive({ station_group_indexes_first_tab(as.numeric(input$min_years), as.numeric(input$max_years), 
+                                                                           as.numeric(input$min_height), as.numeric(input$max_height))
   })
   
   # Mapping the groups of stations that have same best method and distr
