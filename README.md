@@ -16,17 +16,16 @@ runGitHub("FlomKart_ShinyApp", "fbaffie")
 
 #### Locally
 
-To have a copy on your computer, first clone the git repository, then download both full NetCDF files and then use `runApp()`:
+To have a copy on your computer, first clone the git repository. Then set FlomKart_ShinyApp/R as the working directory, download both full NetCDF files and finally use `runApp()`:
 
 ```R
-# First clone the repository with git. If you have cloned it into
-# ~/FlomKart_Shiny, go to that directory and download the NetCDF files
-
+# First clone the repository with git. You should have cloned it as
+# ~/FlomKart_ShinyApp. Set the working directory to the /R sub-folder and download the NetCDF files
+setwd("~/FlomKart_Shiny/R")
 download.file('https://www.dropbox.com/s/bqnc49gd8yucdlz/gof.nc?raw=1', destfile="../data/gof.nc", method="auto")
 download.file('https://www.dropbox.com/s/d9f84qz3md2f99b/flood_database.nc?raw=1', destfile="../data/flood_database.nc", method="auto")
 
 # Then use runApp().
-setwd("~/FlomKart_Shiny/R")
 runApp()
 ```
 
