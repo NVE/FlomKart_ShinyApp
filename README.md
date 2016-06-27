@@ -1,11 +1,42 @@
 # FlomKart_ShinyApp
 Code of the Shiny app developed for the FlomKart project
 
-## Running the app (NOT READY)
+## Running the app 
 
-#### Directly from Github
+#### Directly from Github (NOT READY)
 
-I would like to allow running the app directly from Github (with runGitHub) but I first need to figure out how to read the NetCDF files remotely, or alternatively add 2 very small NetCDF files to this repo for demonstration purposes.
+I would like to allow running the app directly from Github (with runGitHub) but I first need to add 2 very small NetCDF files to this repo for demonstration purposes.
+
+```R
+library(shiny)
+
+runGitHub("FlomKart_ShinyApp", "fbaffie")
+
+```
+
+#### Locally
+
+To have a copy on your computer, first clone the git repository, then download both full NetCDF files and then use `runApp()`:
+
+```R
+# First clone the repository with git. If you have cloned it into
+# ~/FlomKart_Shiny, go to that directory and download the NetCDF files
+
+download.file('https://www.dropbox.com/s/bqnc49gd8yucdlz/gof.nc?raw=1', destfile="../data/gof.nc", method="auto")
+download.file('https://www.dropbox.com/s/d9f84qz3md2f99b/flood_database.nc?raw=1', destfile="../data/flood_database.nc", method="auto")
+
+# Then use runApp().
+setwd("~/FlomKart_Shiny/R")
+runApp()
+```
+
+
+
+
+
+
+
+
 
 
 ## Methodology
