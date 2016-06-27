@@ -38,34 +38,40 @@ formattable(df, list(
 # devtools::install_github('rstudio/DT')
 
 # example use of DT with highlighting. Looks like a nice way to highlight cells
-library('shinydashboard')
-header <- dashboardHeader()
 
-sidebar <- dashboardSidebar()
+##########################################
 
-body <- dashboardBody(
-  DT::dataTableOutput("mtcarsTable")
-)
+# library('shinydashboard')
+# header <- dashboardHeader()
+# 
+# sidebar <- dashboardSidebar()
+# 
+# body <- dashboardBody(
+#   DT::dataTableOutput("mtcarsTable")
+# )
+# 
+# shinyApp(
+#   ui = dashboardPage(header, sidebar, body),
+#   server = function(input, output) {
+#     
+#     output$mtcarsTable <- renderDataTable({
+#       DT::datatable(datasets::mtcars, 
+#                     options = list(rowCallback = JS('
+#                                                     function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+#                                                     // Bold and green cells for conditions
+#                                                     if (parseFloat(aData[3]) >= 200)
+#                                                     $("td:eq(3)", nRow).css("font-weight", "bold");
+#                                                     if (parseFloat(aData[3]) >= 100)
+#                                                     $("td:eq(3)", nRow).css("background-color", "#9BF59B");
+#                                                     }')
+#                     )
+#                     )
+#   })
+#   }
+#                     )
 
-shinyApp(
-  ui = dashboardPage(header, sidebar, body),
-  server = function(input, output) {
-    
-    output$mtcarsTable <- renderDataTable({
-      DT::datatable(datasets::mtcars, 
-                    options = list(rowCallback = JS('
-                                                    function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                                                    // Bold and green cells for conditions
-                                                    if (parseFloat(aData[3]) >= 200)
-                                                    $("td:eq(3)", nRow).css("font-weight", "bold");
-                                                    if (parseFloat(aData[3]) >= 100)
-                                                    $("td:eq(3)", nRow).css("background-color", "#9BF59B");
-                                                    }')
-                    )
-                    )
-  })
-  }
-                    )
+
+#####################################
 
 # shinyjs is installed, it could be interesting
 
