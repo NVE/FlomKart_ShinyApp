@@ -1,13 +1,20 @@
 # FlomKart_ShinyApp
 Code of the Shiny app developed for the FlomKart project
 
-# Methodology
+## Running the app (NOT READY)
+
+#### Directly from Github
+
+I would like to allow running the app directly from Github (with runGitHub) but I first need to figure out how to read the NetCDF files remotely, or alternatively add 2 very small NetCDF files to this repo for demonstration purposes.
+
+
+## Methodology
 
 We read the NetCDF files created by the FlomKart repo and visualize the results via an R Shiny app.
 This helps better finding problems in the creation of the NetCDF files and is also a practical way to graphically explore the results.
 We will improve the mapping features in order to better understand how floods statistics may be regionalized.
 
-# Filing issues
+## Filing issues
 
 Please try to follow those guidelines for filing issues:
 
