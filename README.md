@@ -22,8 +22,10 @@ To have a copy on your computer, first clone the git repository. Then set FlomKa
 # First clone the repository with git. You should have cloned it as
 # ~/FlomKart_ShinyApp. Set the working directory to the /R sub-folder and download the NetCDF files
 setwd("~/FlomKart_Shiny/R")
-download.file('https://www.dropbox.com/s/bqnc49gd8yucdlz/gof.nc?raw=1', destfile="../data/gof.nc", method="auto")
-download.file('https://www.dropbox.com/s/d9f84qz3md2f99b/flood_database.nc?raw=1', destfile="../data/flood_database.nc", method="auto")
+download.file('https://www.dropbox.com/s/ou2sxl4hsm0j9rs/gof.nc?raw=1', destfile="../data/gof.nc", method="auto")
+download.file('https://www.dropbox.com/s/yyhbts8er96iggb/flood_database.nc?raw=1', destfile="../data/flood_database.nc", method="auto")
+
+
 
 # Then use runApp().
 runApp()
