@@ -23,6 +23,9 @@ To have a copy on your computer, first clone the git repository. Then set FlomKa
 # ~/FlomKart_ShinyApp. Set the working directory to the /R sub-folder and download the NetCDF files
 setwd("~/FlomKart_Shiny/R")
 
+# Download the data either via the following links, a with R using the code provided below:
+# https://www.dropbox.com/s/yyhbts8er96iggb/flood_database.nc?dl=0
+# https://www.dropbox.com/s/ou2sxl4hsm0j9rs/gof.nc?dl=0
 dl_from_dropbox <- function(x, key) {
      require(RCurl)
      bin <- getBinaryURL(paste0("https://dl.dropboxusercontent.com/s/", key, "/", x),
@@ -36,19 +39,11 @@ dl_from_dropbox <- function(x, key) {
 dl_from_dropbox("flood_database.nc", "yyhbts8er96iggb")
 dl_from_dropbox("gof.nc", "ou2sxl4hsm0j9rs")
 
-
 # Then use runApp().
 runApp()
 ```
 
-
-
-
-
-
-
-
-
+Required packages are specified in global.r and should get installed automatically if missing.
 
 ## Methodology
 
