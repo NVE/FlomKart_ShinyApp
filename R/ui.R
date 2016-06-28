@@ -1,6 +1,4 @@
-# A shiny app gets called this way: shiny::runApp()
-# Libraries
-library(shiny)
+# User interface file for Shiny App
 
 ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                  

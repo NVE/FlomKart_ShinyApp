@@ -1,21 +1,29 @@
 # Preloading of NetCDF files and other pre-processing that should only happen once
 
 # rm(list = ls())  # clean out workspace and set working directorY
-# setwd('C:/Users/flbk/Documents/GitHub/FlomKart_ShinyApp')  # CHECK DIR
+# setwd('C:/Users/flbk/Documents/GitHub/FlomKart_ShinyApp')  
 # to consider appDir = getwd()
+
+# Installing and loading required packages
+packages <- c("shiny","leaflet","RNetCDF","magrittr","evd","nsRFA","formattable","DT","shinyBS")
+if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
+  install.packages(setdiff(packages, rownames(installed.packages())))  
+}
+
+# apply(as.list(packages),library)
 
 library(shiny)        # TO run the app!
 library(leaflet)      # For the interactive map    
 library(RNetCDF)      # To read the data in netCDF files
 library(magrittr)     # For piping functions
 library(evd)          # Functions for extreme value distributions
-library(nsRFA)       # For the GL distrib (,aybe pearson too)
+library(nsRFA)        # For the GL distrib (,aybe pearson too)
 library(formattable)  # To add formatting to data tables
-library(DT)         # for the data tables
+library(DT)           # for the data tables
 library(shinyBS)      # for the interactive popover features
 
 
-# dat <- read.csv("//nve/fil/h/HM/Interne Prosjekter/Flomkart/Model_fitting/Florian/Data/AMS_table_updated.csv", sep=";", as.is=TRUE)  # CHECK DIR
+# dat <- read.csv("//nve/fil/h/HM/Interne Prosjekter/Flomkart/Model_fitting/Florian/Data/AMS_table_updated.csv", sep=";", as.is=TRUE)  
 # dat$date_DOGN <- as.POSIXlt(dat$date_DOGN)
 # dummy_date <- dat$date_DOGN
 # dat$day <- dummy_date$mday        # day of month
@@ -31,8 +39,8 @@ library(shinyBS)      # for the interactive popover features
 # barplot(dat$flom_DOGN, dat$year)
 
 
-nc <- open.nc("../data/flood_database.nc", write = FALSE)  # Put FALSE for read-only  # CHECK DIR
-gof_nc <- open.nc("../data/gof.nc", write = FALSE)  # Put FALSE for read-only  # CHECK DIR
+nc <- open.nc("../data/flood_database.nc", write = FALSE)  # Put FALSE for read-only  
+gof_nc <- open.nc("../data/gof.nc", write = FALSE)  # Put FALSE for read-only  
 
 # Compare with gof_noXvalid.nc
 # gof_nc <- open.nc("output/gof_noXvalid.nc", write = FALSE)  # Put FALSE for read-only

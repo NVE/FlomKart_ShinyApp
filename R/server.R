@@ -1,7 +1,6 @@
 # Server file for Shiny App
-# Be careful to update the directories
 
-# supporting functions for the app
+# supporting files for the app
 source('global.R')  
 source('rawdata_plotting.R')
 source('mapping.R')
@@ -9,6 +8,9 @@ source('main_plotting.R')  # plots for the first "main plots" subtab
 source('gof_plotting.R')  # GOF plots
 source('rperiods_plotting.R')  # Plots that are a function of return periods (return levels, QS, BS, NT)
 source('ui.R')  # User inferface function
+
+# good debuggin tool that stops the browser and lets explore which call cause an error
+# options(shiny.error = browser)
 # shinyApp(ui, server)  # to run the app
 
 
@@ -362,10 +364,4 @@ server <- function(session,input, output) {
   
 }  # end of server function
 
-# good debuggin tool that stops the browser and lets explore which call cause an error
-# options(shiny.error = browser)
-
-
-## Run the app!  ---------------
-# shinyApp(ui, server)
 
