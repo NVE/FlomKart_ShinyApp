@@ -16,15 +16,25 @@ runGitHub("FlomKart_ShinyApp", "fbaffie")
 
 #### Locally
 
-To have a copy on your computer, first clone the git repository. Then set FlomKart_ShinyApp/R as the working directory, download both full NetCDF files and finally use `runApp()`:
+To have a copy on your computer, first clone the git repository. Then set FlomKart_ShinyApp/R as the working directory, download both full NetCDF files to FlomKart_ShinyApp/data/ and finally use `runApp()` from the working directory:
 
 ```R
 # First clone the repository with git. You should have cloned it as
 # ~/FlomKart_ShinyApp. Set the working directory to the /R sub-folder and download the NetCDF files
 setwd("~/FlomKart_Shiny/R")
-download.file('https://www.dropbox.com/s/ou2sxl4hsm0j9rs/gof.nc?raw=1', destfile="../data/gof.nc", method="auto")
-download.file('https://www.dropbox.com/s/yyhbts8er96iggb/flood_database.nc?raw=1', destfile="../data/flood_database.nc", method="auto")
 
+dl_from_dropbox <- function(x, key) {
+     require(RCurl)
+     bin <- getBinaryURL(paste0("https://dl.dropboxusercontent.com/s/", key, "/", x),
+                         ssl.verifypeer = FALSE)
+     con <- file(paste("../data/", x, sep = ""), open = "wb")
+     writeBin(bin, con)
+     close(con)
+     message(noquote(paste(x, "read into", "~/FlomKart_Shiny/data")))                        
+}
+
+dl_from_dropbox("flood_database.nc", "yyhbts8er96iggb")
+dl_from_dropbox("gof.nc", "ou2sxl4hsm0j9rs")
 
 
 # Then use runApp().
