@@ -12,7 +12,7 @@
 # 
 
 ########################################## TEST OF BOX PLOT FOR ALL STATIONS THAT HAVE MORE THAN N data
-qdata_boxplot <- function(min_years, max_years, min_height, max_height ) {
+qdata_boxplot_OLD <- function(min_years, max_years, min_height, max_height ) {
   
   keep <- c()
   keep <- which(station$length_rec > min_years)
@@ -42,7 +42,7 @@ print(keep)
   # boxplot(sort(Q[keep, ], decreasing = TRUE), horizontal = TRUE, outwex = TRUE, names = "dff")
 }  
 
-qdata_barplot <- function(min_years, max_years, min_height, max_height ) {
+qdata_barplot_OLD <- function(min_years, max_years, min_height, max_height ) {
     keep <- c()
     keep <- which(station$length_rec > min_years)
     keep <- intersect(keep, which(station$length_rec < max_years))
@@ -97,5 +97,43 @@ qdata_barplot <- function(min_years, max_years, min_height, max_height ) {
 #   
 #   max_vect <- colMaxs(flood_list[to_plot])
   
+
+qdata_boxplot <- function(station_nb ) {
+  
+#   norm_Q <- Q[1:220, ] / rowMeans(Q[1:220, ], na.rm = TRUE)
+#   st_ave.norm_Q <- colMeans(norm_Q, na.rm = TRUE)
+#   
+#   norm_Q_this.station <- Q[station_nb, ] / mean(Q[station_nb, ], na.rm = TRUE)
+# 
+#   plot_ly(y = norm_Q_this.station, type = "box") %>%
+#     add_trace(y = st_ave.norm_Q, type = "box")  
+  
+  
+  plot_ly(y = Q[station_nb, ], type = "box") %>%
+    add_trace(y = Q[station_nb + 1, ], type = "box") %>%
+    add_trace(y = Q[station_nb + 2, ], type = "box") %>%
+    add_trace(y = Q[station_nb + 3, ], type = "box") %>%
+    add_trace(y = Q[station_nb + 4, ], type = "box")
+  
+    
+}  
+
+
+qdata_barplot <- function(station_nb) {
+ 
+  plot_ly(
+    x = years[station_nb, ],
+    y = Q[station_nb, ],
+    name = "Bar plot of raw data",
+    type = "bar") %>%
+    add_trace(x = years[station_nb + 1, ], y = Q[station_nb + 1, ], type = "bar") %>%
+    add_trace(x = years[station_nb + 2, ], y = Q[station_nb + 2, ], type = "bar") %>%
+    add_trace(x = years[station_nb + 3, ], y = Q[station_nb + 3, ], type = "bar") %>%
+    add_trace(x = years[station_nb + 4, ], y = Q[station_nb + 4, ], type = "bar")
+  
+    # barplot(Q[station_nb, ], years[station_nb, ], width = 1, space = 0)
+
+}
+
 
   

@@ -166,6 +166,10 @@ server <- function(session,input, output) {
   })
   new_station.index  <- reactive({ which(station$number == input$station)  
   })
+  station2rawplot.index <- reactive({ which(station$number == input$station2rawplot)  
+  })
+  
+  
   
   distr.index <- reactive({ which(distr.name == input$distr)
   })
@@ -185,11 +189,11 @@ server <- function(session,input, output) {
   }) 
   
   ## Rendering plots of the first tab
-  output$qdata_boxplot <- renderPlot({
-    qdata_boxplot(as.numeric(input$min_years), as.numeric(input$max_years), as.numeric(input$min_height), as.numeric(input$max_height))
+  output$qdata_boxplot <- renderPlotly({
+    qdata_boxplot(station2rawplot.index())
   })
-  output$qdata_barplot <- renderPlot({
-    qdata_barplot(as.numeric(input$min_years), as.numeric(input$max_years), as.numeric(input$min_height), as.numeric(input$max_height))
+  output$qdata_barplot <- renderPlotly({
+    qdata_barplot(station2rawplot.index())
   })
 
   

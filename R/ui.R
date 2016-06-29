@@ -56,19 +56,20 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                             )
                           ),
                           fluidRow(
-                            column(3,plotOutput('qdata_boxplot')),
-                            column(3,plotOutput('qdata_barplot')),
+                            column(3,plotlyOutput('qdata_boxplot')),
+                            column(3,plotlyOutput('qdata_barplot')),
                            
                             column(3, wellPanel(
-                              selectInput(inputId='region', selected = '0', label='Or select a region', 
-                                          choices = c(1, 2, 3, 4, 5, 6, 7, "ALL"))
-                            )
-                            ),
-                            column(3, wellPanel(
-                              selectInput(inputId='station4region', selected = '1', label='Select a specific station', 
-                                          choices = c("0001", "0002"))
+                              selectInput(inputId='station2rawplot', selected =  station$number[37], 
+                                          label = "Pick a station for the plots", choices = station$number)
                             )
                             )
+#                             ,
+#                             column(3, wellPanel(
+#                               selectInput(inputId='station4region', selected = '1', label='Select a specific station', 
+#                                           choices = c("0001", "0002"))
+#                             )
+#                             )
                             
                           )
                  ),

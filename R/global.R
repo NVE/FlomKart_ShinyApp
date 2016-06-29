@@ -21,7 +21,7 @@ library(nsRFA)        # For the GL distrib (,aybe pearson too)
 library(formattable)  # To add formatting to data tables
 library(DT)           # for the data tables
 library(shinyBS)      # for the interactive popover features
-
+library(plotly)       # for interactive graphs
 
 # dat <- read.csv("//nve/fil/h/HM/Interne Prosjekter/Flomkart/Model_fitting/Florian/Data/AMS_table_updated.csv", sep=";", as.is=TRUE)  
 # dat$date_DOGN <- as.POSIXlt(dat$date_DOGN)
