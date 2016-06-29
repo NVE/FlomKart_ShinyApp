@@ -131,6 +131,9 @@ stations.summary.df <- data.frame("Station name" = station$name,
 
 gof_summary <- function(gof, station) {
   
+#   print(gof)
+#   print(station)
+  
   gof.table <- data.frame(gum = rep(NA,4), gam = rep(NA,4), gev = rep(NA,4), glo = rep(NA,4), pe3 = rep(NA,4))
   # gof.table <- matrix(NA,4,5)
   min.gof <- 100
@@ -144,6 +147,9 @@ gof_summary <- function(gof, station) {
     for (d in seq(along = distr.name)) {
       gof.table[m,d] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 30, 1),
                                    count = c(1, 1, 1, 1, 1))  # in dataframe [row, column]
+#       print("print(gof.table[m,d])")
+#       print(gof.table[m,d])
+      
       if (!is.na(gof.table[m,d])) {
         if (gof.table[m,d] < min.gof) {
           min.gof <- gof.table[m,d]
@@ -156,31 +162,59 @@ gof_summary <- function(gof, station) {
         
       }
       gof.table[m,d] <- round(gof.table[m,d], 4)
+      
     }
   }
   
   min.gof <- round(min.gof, 4)
   
   max.gof <- round(max.gof, 4)
+
   
   results <- list(min_gof = min.gof, min_index = min.index, max_gof = max.gof, max_index = max.index, gof_table = gof.table)
+
+#   print("results")
+#     print(results)
+
   invisible(results)  
 }
 
 gof_summary_rperiods <- function(gof, station, r.period) {
   
-  if (gof == "BS" || gof == "NT") {
+  if (gof == "BS" || gof == "QS") {
     r.period.index <- which(rperiods.bs == r.period)  
   } else {r.period.index <- which(return.periods == r.period)}
+  
+  print("rperiods.bs")
+  print(rperiods.bs)
+
+  print("return.periods")
+  print(return.periods)
+
+  print("r.period")
+  print(r.period)  
+  
+  print("r.period.index")
+  print(r.period.index)  
   
   gof.table <- data.frame(gum = rep(NA,4), gam = rep(NA,4), gev = rep(NA,4), glo = rep(NA,4), pe3 = rep(NA,4))
   row.names(gof.table) <- method.name
   for (m in seq(along = method.name)) {
     for (d in seq(along = distr.name)) {
       if (gof == "r.levels") {
+        print("r.period.index")
+        print(r.period.index)
+        r.period.index <- as.numeric(r.period.index)
+        print(c(station, d, m, 30, 1, r.period.index))
       gof.table[m,d] <- round(var.get.nc(gof_nc, gof, start = c(station, d, m, 30, 1, r.period.index),
                                          count = c(1, 1, 1, 1, 1, 1)), 0)  # in dataframe [row, column]
       } else {
+        
+        print("r.period.index")
+        print(r.period.index)
+        r.period.index <- as.numeric(r.period.index)
+        print(c(station, d, m, 30, 1, r.period.index))
+        
       gof.table[m,d] <- round(var.get.nc(gof_nc, gof, start = c(station, d, m, 30, 1, r.period.index),
                                            count = c(1, 1, 1, 1, 1, 1)), 2)  # in dataframe [row, column] 
       }
@@ -261,9 +295,18 @@ station_group_indexes_first_tab <- function(min_years, max_years, min_height, ma
 # Function for updating the df to put in the interactive table
 group.dfmaker <- function(group.indexes) {
   
-  group.df <- data.frame("Station name" = station$name[group.indexes], 
-                         "NVE number" = station$nve_nb[group.indexes],
-                         "Length of record" = station$length_rec[group.indexes])
+  group.df <- data.frame("Station number" = station$number[group.indexes],
+                         "Length of record" = station$length_rec[group.indexes],
+  "Catchment area" = station$catchment.size[group.indexes],
+  "Min elevation" = station$catchment.min.height[group.indexes],
+  "Max elevation" = station$catchment.max.height[group.indexes])
+  
+  print("group.indexes")
+  
+    print(group.indexes)
+    print("group.df")
+    
+      print(group.df)
   
   invisible(group.df)
 }

@@ -354,7 +354,7 @@ plot4server_rlevels_coeffvar_ave  <- function(gof, r.period, min_years, max_year
   
   print(gof)
   print(r.period)
-  if (gof == "BS" || gof == "NT") {
+  if (gof == "BS" || gof == "QS") {
     r.period.index <- which(rperiods.bs == r.period)  
   } else {r.period.index <- which(return.periods == r.period)}
   

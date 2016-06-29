@@ -35,7 +35,7 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                             ),
                           fluidRow(
                             column(3, wellPanel(
-                              selectInput(inputId='min_years', selected = '60', label='Select a minimum number of years', 
+                              selectInput(inputId='min_years', selected = '30', label='Select a minimum number of years', 
                                           choices = c(30,60,90,120))
                             )
                             ),
@@ -310,12 +310,12 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                                        
                                        
                                        column(3, wellPanel(
-                                         selectInput(inputId='min_years4coeff_ave', selected = '60', label='Select a minimum number of years', 
+                                         selectInput(inputId='min_years4coeff_ave', selected = '30', label='Select a minimum number of years', 
                                                      choices = c(30,60,90,120))
                                        )
                                        ),
                                        column(3, wellPanel(
-                                         selectInput(inputId='max_years4coeff_ave', selected = '80', label='Select a maximum number of years', 
+                                         selectInput(inputId='max_years4coeff_ave', selected = '150', label='Select a maximum number of years', 
                                                      choices = c(60,90,120,150))
                                        )
                                        )
@@ -334,12 +334,12 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                                        )
                                        ),
                                        column(4, wellPanel(
-                                         selectInput(inputId='min_years4ave', selected = '60', label='Select a minimum number of years', 
+                                         selectInput(inputId='min_years4ave', selected = '30', label='Select a minimum number of years', 
                                                      choices = c(30,60,90,120))
                                        )
                                        ),
                                        column(4, wellPanel(
-                                         selectInput(inputId='max_years4ave', selected = '90', label='Select a maximum number of years', 
+                                         selectInput(inputId='max_years4ave', selected = '150', label='Select a maximum number of years', 
                                                      choices = c(60,90,120,150))
                                        )
                                        )

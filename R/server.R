@@ -120,7 +120,7 @@ server <- function(session,input, output) {
   
   ## Conditional use of observe for the special return periods of BS and NT
   observe({
-    if(input$coeffvar2plot_ave == "BS" || input$coeffvar2plot_ave == "NT") { 
+    if(input$coeffvar2plot_ave == "BS" || input$coeffvar2plot_ave == "QS") { 
       output$r.period4coefvar_ave <- renderUI({ selectInput(inputId='r.period4coefvar_ave', selected =  10, 
                                                     label = "Which return period to plot?", choices = rperiods.bs)
       })  
@@ -146,7 +146,7 @@ server <- function(session,input, output) {
   }) 
   ## Same thing for BS in the main subtab selection for the table
   observe({
-    if(input$gof2table2 == "BS") { 
+    if(input$gof2table2 == "BS" || input$gof2table2 == "QS") { 
       output$r.period4table <- renderUI({ selectInput(inputId='r.period4table', selected =  10, 
                                                         label = "Choose a return period for the table", choices = rperiods.bs)
       })  
@@ -267,27 +267,44 @@ server <- function(session,input, output) {
     
     formattable(temp.list$gof_table, list(
       # Strangely, the condition didn't work with x == temp.list...
-      gum = formatter("span", style = x ~ ifelse(abs(x - temp.list$min_gof) < 0.00001, style(color = "green", font.weight = "bold"),
-                                                 ifelse(abs(x - temp.list$max_gof) < 0.00001, style(color = "red", font.weight = "bold"), NA))),
+#       gum = formatter("span", style = x ~ ifelse(abs(x - temp.list$min_gof) < 0.00001, style(color = "green", font.weight = "bold"),
+#                                                  ifelse(abs(x - temp.list$max_gof) < 0.00001, style(color = "red", font.weight = "bold"), NA))),
+#       
+#       gam = formatter("span", style = x ~ ifelse(abs(x - temp.list$min_gof) < 0.00001, style(color = "green", font.weight = "bold"),
+#                                                  ifelse(abs(x - temp.list$max_gof) < 0.00001, style(color = "red", font.weight = "bold"), NA))),
+#       
+#       gev = formatter("span", style = x ~ ifelse(abs(x - temp.list$min_gof) < 0.00001, style(color = "green", font.weight = "bold"),
+#                                                  ifelse(abs(x - temp.list$max_gof) < 0.00001, style(color = "red", font.weight = "bold"), NA))),
+#       
+#       glo = formatter("span", style = x ~ ifelse(abs(x - temp.list$min_gof) < 0.00001, style(color = "green", font.weight = "bold"),
+#                                                  ifelse(abs(x - temp.list$max_gof) < 0.00001, style(color = "red", font.weight = "bold"), NA))),
+#       
+#       pe3 = formatter("span", style = x ~ ifelse(abs(x - temp.list$min_gof) < 0.00001, style(color = "green", font.weight = "bold"),
+#                                                  ifelse(abs(x - temp.list$max_gof) < 0.00001, style(color = "red", font.weight = "bold"), NA)))
       
-      gam = formatter("span", style = x ~ ifelse(abs(x - temp.list$min_gof) < 0.00001, style(color = "green", font.weight = "bold"),
-                                                 ifelse(abs(x - temp.list$max_gof) < 0.00001, style(color = "red", font.weight = "bold"), NA))),
       
-      gev = formatter("span", style = x ~ ifelse(abs(x - temp.list$min_gof) < 0.00001, style(color = "green", font.weight = "bold"),
-                                                 ifelse(abs(x - temp.list$max_gof) < 0.00001, style(color = "red", font.weight = "bold"), NA))),
+      gum = formatter("span", style = x ~ ifelse(x == temp.list$min_gof, style(color = "green", font.weight = "bold"),
+                                                 ifelse(x == temp.list$max_gof, style(color = "red", font.weight = "bold"), NA))),
       
-      glo = formatter("span", style = x ~ ifelse(abs(x - temp.list$min_gof) < 0.00001, style(color = "green", font.weight = "bold"),
-                                                 ifelse(abs(x - temp.list$max_gof) < 0.00001, style(color = "red", font.weight = "bold"), NA))),
+      gam = formatter("span", style = x ~ ifelse(x == temp.list$min_gof, style(color = "green", font.weight = "bold"),
+                                                 ifelse(x == temp.list$max_gof, style(color = "red", font.weight = "bold"), NA))),
       
-      pe3 = formatter("span", style = x ~ ifelse(abs(x - temp.list$min_gof) < 0.00001, style(color = "green", font.weight = "bold"),
-                                                 ifelse(abs(x - temp.list$max_gof) < 0.00001, style(color = "red", font.weight = "bold"), NA)))
+      gev = formatter("span", style = x ~ ifelse(x == temp.list$min_gof, style(color = "green", font.weight = "bold"),
+                                                 ifelse(x == temp.list$max_gof, style(color = "red", font.weight = "bold"), NA))),
+      
+      glo = formatter("span", style = x ~ ifelse(x == temp.list$min_gof, style(color = "green", font.weight = "bold"),
+                                                 ifelse(x == temp.list$max_gof, style(color = "red", font.weight = "bold"), NA))),
+      
+      pe3 = formatter("span", style = x ~ ifelse(x == temp.list$min_gof, style(color = "green", font.weight = "bold"),
+                                                 ifelse(x == temp.list$max_gof, style(color = "red", font.weight = "bold"), NA)))
+      
     ))
     
   })
   
   output$gof.table2 <- renderFormattable({ 
     # This is probably not the most helpful way to format this table.
-    formattable(gof_summary_rperiods(input$gof2table2, old_station.index(), input$r.period4table), list(
+    formattable(gof_summary_rperiods(input$gof2table2, old_station.index(), as.numeric(input$r.period4table)), list(
       gum = color_tile("white", "pink"),
       gam = color_tile("white", "pink"),
       gev = color_tile("white", "pink"),
