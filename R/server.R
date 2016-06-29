@@ -366,7 +366,7 @@ server <- function(session,input, output) {
   
   # Mapping common stations for the first tab
   output$map.groups_first.tab <- renderLeaflet({
-  norway_map4groups(st_group_first_tab.indexes())
+    norway_map4groups_tab1(st_group_first_tab.indexes())
     
   })
   
