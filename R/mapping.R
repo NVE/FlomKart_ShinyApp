@@ -170,9 +170,23 @@ norway_map4groups_tab1 <- function(group.index) {
   }
   
   
-  map <- leaflet() %>% addTiles()
-  setView(map, 13, 64, zoom = 5) 
+  map <-leaflet() %>% setView(13, 64, zoom = 5)  %>%  addWMSTiles(
+    "http://wms.geonorge.no/skwms1/wms.topo2",
+    layers = "topo2_WMS",
+    options = WMSTileOptions(format = "image/png", transparent = TRUE),
+    tileOptions(tms = TRUE),
+    attribution = "Kartverket")
+ 
   
+#   map <-leaflet() %>% setView(13, 64, zoom = 5)  %>%  addWMSTiles(
+#     "http://openwms.statkart.no/skwms1/wms.europa",
+#     layers = "Europa_WMS",
+#     options = WMSTileOptions(format = "image/png", transparent = TRUE),
+#     tileOptions(tms = TRUE),
+#     attribution = "Kartverket")
+  
+  
+
   addCircleMarkers(map, data = station, lng = ~ long, lat = ~ lat, 
                    popup = paste("Name:", as.character(station$name), "Number:", station$nve_nb,
                                  "Length of record:", station$length_rec, sep = " "),

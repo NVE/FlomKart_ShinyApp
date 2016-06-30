@@ -92,6 +92,8 @@ buildingwidgets.com
 formatRound
 formatRoundCheckboxes?
 
+A way to do a plotly QQ plot:
+http://moderndata.plot.ly/interactive-qq-plots-r-plotly/
 
 ----------------------------------------------------------------------------------------- 
 					LITERATURE
