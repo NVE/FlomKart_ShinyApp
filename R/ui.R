@@ -202,8 +202,8 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                                                      label = "Pick a station", choices = station$number)
                                        )),
                                        column(3, wellPanel(
-                                         selectInput(inputId='r.period4qs', selected = 100, label='Which return period to plot?', 
-                                                     choices = return.periods)
+                                         selectInput(inputId='r.period4qs', selected = 10, label='Which return period to plot?', 
+                                                     choices = rperiods.bs)
                                        )
                                        ),
                                        

@@ -3,7 +3,7 @@
 plot4server_gof.rlevels  <- function(station, gof, r.period, quantile) { 
   
   print(gof)
-  if (gof == "BS") {
+  if (gof == "BS" || gof == "QS") {
     r.period.index <- which(rperiods.bs == r.period)  
   } else {r.period.index <- which(return.periods == r.period)}
   

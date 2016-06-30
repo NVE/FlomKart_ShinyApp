@@ -5,7 +5,7 @@
 # to consider appDir = getwd()
 
 # Installing and loading required packages
-packages <- c("shiny","leaflet","RNetCDF","magrittr","evd","nsRFA","formattable","DT","shinyBS")
+packages <- c("shiny", "leaflet", "RNetCDF", "magrittr", "evd", "nsRFA", "formattable", "DT", "shinyBS", "plotly")
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
   install.packages(setdiff(packages, rownames(installed.packages())))  
 }
