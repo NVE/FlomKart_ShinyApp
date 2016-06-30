@@ -181,8 +181,14 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                                          selectInput(inputId='r.period', selected = 100, label='Which return period to plot?', 
                                                      choices = return.periods)
                                       )
-                                       )
-                                      ),
+                                       ),
+                                      
+                                     column(3, wellPanel(
+                                       selectInput(inputId='quantile', selected = 1, label='Mean, sd, min, max, q25, q50, q75', 
+                                                   choices = c(1, 2, 3, 4, 5, 6, 7))
+                                     )
+                                     )
+                            ),
                                       
                                       
                                      fluidRow(plotOutput('plot.rlevels', width = "100%", height = "900px"))
@@ -199,8 +205,14 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                                          selectInput(inputId='r.period4qs', selected = 100, label='Which return period to plot?', 
                                                      choices = return.periods)
                                        )
-                                       )
                                        ),
+                                       
+                                       column(3, wellPanel(
+                                         selectInput(inputId='quantile4qs', selected = 1, label='Mean, sd, min, max, q25, q50, q75', 
+                                                     choices = c(1, 2, 3, 4, 5, 6, 7))
+                                       )
+                                       )
+                                     ),
                                      fluidRow(plotOutput('plot.qs', width = "100%", height = "900px"))
                                      
                             ), # closing tab
@@ -215,8 +227,14 @@ ui <- navbarPage("Flood frequency analysis",  # cut off:  id = "nav",
                                          selectInput(inputId='r.period4bs', selected = 10, label='Which return period to plot?', 
                                                      choices = rperiods.bs)
                                        )
-                                       )
                                        ),
+                                       
+                                       column(3, wellPanel(
+                                         selectInput(inputId='quantile4bs', selected = 1, label='Mean, sd, min, max, q25, q50, q75', 
+                                                     choices = c(1, 2, 3, 4, 5, 6, 7))
+                                       )
+                                       )
+                                     ),
                                      fluidRow(plotOutput('plot.bs', width = "100%", height = "900px"))
                                      
                             ), # closing tab

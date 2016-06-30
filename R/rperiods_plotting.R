@@ -1,6 +1,6 @@
 # Functions to plot rlevels and other indices that deoends on return periods. For 1 station or a group of stations
 
-plot4server_gof.rlevels  <- function(station, gof, r.period) { 
+plot4server_gof.rlevels  <- function(station, gof, r.period, quantile) { 
   
   print(gof)
   if (gof == "BS") {
@@ -18,7 +18,7 @@ plot4server_gof.rlevels  <- function(station, gof, r.period) {
     
     for (m in 1:3) {
       method <- method.name[m] 
-      temp2plot[m, ] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 1, 1, r.period.index),
+      temp2plot[m, ] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 1, quantile, r.period.index),
                                    count = c(1, 1, 1, length(sampling_years), 1, 1)) 
     }
     if (all(is.na(temp2plot)) == FALSE) {
@@ -69,7 +69,7 @@ plot4server_gof.rlevels  <- function(station, gof, r.period) {
     for (d in seq(along = distr.name)) {
       
       distr <- distr.name[d]
-      temp2plot[d, ] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 1, 1, r.period.index),
+      temp2plot[d, ] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 1, quantile, r.period.index),
                                    count = c(1, 1, 1, length(sampling_years), 1, 1)) 
       
     }
@@ -128,7 +128,7 @@ plot4server_nt  <- function(station, gof, r.period) {
     
     for (m in 1:3) {
       method <- method.name[m] 
-      temp2plot[m, ] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 1, r.period.index),
+      temp2plot[m, ] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 1, 1, r.period.index),
                                    count = c(1, 1, 1, length(sampling_years), 1)) 
     }
     if (all(is.na(temp2plot)) == FALSE) {
@@ -179,7 +179,7 @@ plot4server_nt  <- function(station, gof, r.period) {
     for (d in seq(along = distr.name)) {
       
       distr <- distr.name[d]
-      temp2plot[d, ] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 1, r.period.index),
+      temp2plot[d, ] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 1, 6, r.period.index),
                                    count = c(1, 1, 1, length(sampling_years), 1)) 
       
     }
@@ -249,7 +249,7 @@ plot4server_rlevels_coeffvar  <- function(station, gof, r.period) {
     for (m in 1:3) {
       method <- method.name[m] 
       # coefficient of variation = st_dev / mean
-      temp2plot[m, ] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 1, 2, r.period.index),
+      temp2plot[m, ] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 1, 1, r.period.index),
                                    count = c(1, 1, 1, length(sampling_years), 1, 1)) /
         var.get.nc(gof_nc, gof, start = c(station, d, m, 1, 1, r.period.index),
                    count = c(1, 1, 1, length(sampling_years), 1, 1))
@@ -301,7 +301,7 @@ plot4server_rlevels_coeffvar  <- function(station, gof, r.period) {
       
       distr <- distr.name[d]
       # again coefficient of variation
-      temp2plot[d, ] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 1, 2, r.period.index), 
+      temp2plot[d, ] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 1, 1, r.period.index),
                                    count = c(1, 1, 1, length(sampling_years), 1,1)) /
         var.get.nc(gof_nc, gof, start = c(station, d, m, 1, 1, r.period.index), 
                    count = c(1, 1, 1, length(sampling_years), 1,1))

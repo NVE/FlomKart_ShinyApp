@@ -209,13 +209,13 @@ server <- function(session,input, output) {
     plot4server_gof(old_station.index(), "CS")
   })
   output$plot.rlevels <- renderPlot({
-    plot4server_gof.rlevels(old_station.index(), "r.levels", input$r.period)
+    plot4server_gof.rlevels(old_station.index(), "r.levels", input$r.period, as.numeric(input$quantile))
   })
   output$plot.qs <- renderPlot({
-    plot4server_gof.rlevels(old_station.index(), "QS", input$r.period4qs)
+    plot4server_gof.rlevels(old_station.index(), "QS", input$r.period4qs, as.numeric(input$quantile4qs))
   })
   output$plot.bs <- renderPlot({
-    plot4server_gof.rlevels(old_station.index(), "BS", input$r.period4bs)
+    plot4server_gof.rlevels(old_station.index(), "BS", input$r.period4bs, as.numeric(input$quantile4bs))
   })
   output$plot.nt <- renderPlot({
     plot4server_nt(old_station.index(), "NT", input$r.period4nt)
