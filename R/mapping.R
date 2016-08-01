@@ -168,8 +168,17 @@ norway_map4groups_tab1 <- function(group.index) {
     color <- my.colors[trunc(x2plot/500)+1]
     invisible(color)
   }
+
+# #   # experiment with shape file FAILED  
+#   catchments_shape <- raster::shapefile("//nve/fil/h/HM/Interne Prosjekter/Flomkart/Lavvann/GISDATA/norge.shp")
+#   
+#      catchments_shape <- raster::shapefile("//nve/fil/h/HM/Interne Prosjekter/Flomkart/Lavvann/GISDATA/Hydrologi_TotalNedborfeltMalestasjon.shp")
+#   map <- leaflet(data = catchments_shape) %>%  addTiles() %>%
+#     setView(13, 64, zoom = 5)  %>%  
+#     addPolygons(fill = FALSE, stroke = TRUE, color = "#03F")
   
   
+# WORKS, BUT AM I STEALING A LINK?   
   map <-leaflet() %>% setView(13, 64, zoom = 5)  %>%  addWMSTiles(
     "http://wms.geonorge.no/skwms1/wms.topo2",
     layers = "topo2_WMS",
@@ -177,27 +186,28 @@ norway_map4groups_tab1 <- function(group.index) {
     tileOptions(tms = TRUE),
     attribution = "Kartverket")
  
-  
-#   map <-leaflet() %>% setView(13, 64, zoom = 5)  %>%  addWMSTiles(
-#     "http://openwms.statkart.no/skwms1/wms.europa",
-#     layers = "Europa_WMS",
+# # DOESNT WORK  
+#     map <-leaflet() %>% setView(13, 64, zoom = 5)  %>%  addWMSTiles(
+#     "http://wms.skogoglandskap.no/cgi-bin/clc?language=nor&",
+#     layers = "0",
 #     options = WMSTileOptions(format = "image/png", transparent = TRUE),
 #     tileOptions(tms = TRUE),
 #     attribution = "Kartverket")
   
-  
-
-  addCircleMarkers(map, data = station, lng = ~ long, lat = ~ lat, 
-                   popup = paste("Name:", as.character(station$name), "Number:", station$nve_nb,
-                                 "Length of record:", station$length_rec, sep = " "),
-                   radius = 5, 
-                   color = ~my.color.func(station$catchment.size, my.colors), stroke = FALSE, fillOpacity = 0.5) %>%
-    
-    addMarkers(group.long, group.lat, popup = paste("Name:", as.character(group.name), "Number:", group.nve_nb,
-                                                    "Length of record:", group.length_rec, sep = " ")) %>%
-    
-    addLegend(position = "bottomright", colors = my.colors, labels = c("0-500", "500-1000", "1000-1500", "1500-2000", "2000-2500"),
-              title = "Length of flood record (years)",
-              opacity = 1)
+#   map <- leaflet() %>% addTiles()
+#   setView(map, 13, 64, zoom = 5) 
+#   
+#   addCircleMarkers(map, data = station, lng = ~ long, lat = ~ lat, 
+#                    popup = paste("Name:", as.character(station$name), "Number:", station$nve_nb,
+#                                  "Length of record:", station$length_rec, sep = " "),
+#                    radius = 5, 
+#                    color = ~my.color.func(station$catchment.size, my.colors), stroke = FALSE, fillOpacity = 0.5) %>%
+#     
+#     addMarkers(group.long, group.lat, popup = paste("Name:", as.character(group.name), "Number:", group.nve_nb,
+#                                                     "Length of record:", group.length_rec, sep = " ")) %>%
+#     
+#     addLegend(position = "bottomright", colors = my.colors, labels = c("0-500", "500-1000", "1000-1500", "1500-2000", "2000-2500"),
+#               title = "Length of flood record (years)",
+#               opacity = 1)
   
 }
