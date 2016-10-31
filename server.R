@@ -1,13 +1,13 @@
 # Server file for Shiny App
 
 # supporting files for the app
-source('global.R')  
-source('rawdata_plotting.R')
-source('mapping.R')
-source('main_plotting.R')  # plots for the first "main plots" subtab
-source('gof_plotting.R')  # GOF plots
-source('rperiods_plotting.R')  # Plots that are a function of return periods (return levels, QS, BS, NT)
-source('ui.R')  # User inferface function
+# source('global.R')  
+# source('R/rawdata_plotting.R')
+# source('R/mapping.R')
+# source('R/main_plotting.R')  # plots for the first "main plots" subtab
+# source('R/gof_plotting.R')  # GOF plots
+# source('R/rperiods_plotting.R')  # Plots that are a function of return periods (return levels, QS, BS, NT)
+# source('ui.R')  # User inferface function
 
 # good debuggin tool that stops the browser and lets explore which call cause an error
 # options(shiny.error = browser)
@@ -111,9 +111,9 @@ server <- function(session,input, output) {
     } else {
       output$random.panel <- renderUI({ sliderInput("random", 
                                                     "Browse the random runs", 
-                                                    value = 25,
+                                                    value = 5,
                                                     min = 1, 
-                                                    max = 50)
+                                                    max = 10)
       })
     } 
   }) 

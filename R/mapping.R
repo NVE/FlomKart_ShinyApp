@@ -197,17 +197,17 @@ norway_map4groups_tab1 <- function(group.index) {
 #   map <- leaflet() %>% addTiles()
 #   setView(map, 13, 64, zoom = 5) 
 #   
-#   addCircleMarkers(map, data = station, lng = ~ long, lat = ~ lat, 
-#                    popup = paste("Name:", as.character(station$name), "Number:", station$nve_nb,
-#                                  "Length of record:", station$length_rec, sep = " "),
-#                    radius = 5, 
-#                    color = ~my.color.func(station$catchment.size, my.colors), stroke = FALSE, fillOpacity = 0.5) %>%
-#     
-#     addMarkers(group.long, group.lat, popup = paste("Name:", as.character(group.name), "Number:", group.nve_nb,
-#                                                     "Length of record:", group.length_rec, sep = " ")) %>%
-#     
-#     addLegend(position = "bottomright", colors = my.colors, labels = c("0-500", "500-1000", "1000-1500", "1500-2000", "2000-2500"),
-#               title = "Length of flood record (years)",
-#               opacity = 1)
+  addCircleMarkers(map, data = station, lng = ~ long, lat = ~ lat, 
+                   popup = paste("Name:", as.character(station$name), "Number:", station$nve_nb,
+                                 "Length of record:", station$length_rec, sep = " "),
+                   radius = 5, 
+                   color = ~my.color.func(station$catchment.size, my.colors), stroke = FALSE, fillOpacity = 0.5) %>%
+    
+    addMarkers(group.long, group.lat, popup = paste("Name:", as.character(group.name), "Number:", group.nve_nb,
+                                                    "Length of record:", group.length_rec, sep = " ")) %>%
+    
+    addLegend(position = "bottomright", colors = my.colors, labels = c("0-500", "500-1000", "1000-1500", "1500-2000", "2000-2500"),
+              title = "Length of flood record (years)",
+              opacity = 1)
   
 }
