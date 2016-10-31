@@ -23,6 +23,13 @@ library(DT)           # for the data tables
 library(shinyBS)      # for the interactive popover features
 library(plotly)       # for interactive graphs
 
+source('R/rawdata_plotting.R')
+source('R/mapping.R')
+source('R/main_plotting.R')  # plots for the first "main plots" subtab
+source('R/gof_plotting.R')  # GOF plots
+source('R/rperiods_plotting.R')  # Plots that are a function of return periods (return levels, QS, BS, NT)
+
+
 # dat <- read.csv("//nve/fil/h/HM/Interne Prosjekter/Flomkart/Model_fitting/Florian/Data/AMS_table_updated.csv", sep=";", as.is=TRUE)  
 # dat$date_DOGN <- as.POSIXlt(dat$date_DOGN)
 # dummy_date <- dat$date_DOGN
@@ -39,8 +46,8 @@ library(plotly)       # for interactive graphs
 # barplot(dat$flom_DOGN, dat$year)
 
 
-nc <- open.nc("../data/flood_database.nc", write = FALSE)  # Put FALSE for read-only  
-gof_nc <- open.nc("../data/gof.nc", write = FALSE)  # Put FALSE for read-only  
+nc <- open.nc("data/flood_database.nc", write = FALSE)  # Put FALSE for read-only  
+gof_nc <- open.nc("data/gof.nc", write = FALSE)  # Put FALSE for read-only  
 
 # Compare with gof_noXvalid.nc
 # gof_nc <- open.nc("output/gof_noXvalid.nc", write = FALSE)  # Put FALSE for read-only
