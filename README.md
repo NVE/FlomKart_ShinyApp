@@ -10,5 +10,5 @@ You can run the app locally with this command:
 install.packages('shiny')
 # Then load Shiny and run from Github:
 library(shiny)
-runGitHub("FlomKart_DemoApp", "fbaffie")
+runGitHub("FlomKart_ShinyApp", "fbaffie", ref = "demo")
 ```
