@@ -5,16 +5,9 @@ Code of the Shiny app developed for the FlomKart project
 
 ## Running the app 
 
-#### Directly from Github (NOT READY)
+#### Directly from Github
 
-I would like to allow running the app directly from Github (with runGitHub) but I first need to add 2 very small NetCDF files to this repo for demonstration purposes.
-
-```R
-library(shiny)
-
-runGitHub("FlomKart_ShinyApp", "fbaffie")
-
-```
+See the branch "demo"
 
 #### Locally
 
