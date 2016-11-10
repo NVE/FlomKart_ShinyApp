@@ -1,12 +1,26 @@
 # Plotting function for the ShinyApp
 
-# Plot function for server ------------------
+
+#' plot4server
+#' @description plot fitted probability density function to estimated empirical pdf
+#' @param dat 
+#' @param param 
+#' @param distr.index 
+#'
+#' @return Returns nothing else than a plot, saves nothing
+#' @importFrom nsRFA f.genlogis
+#' @importFrom nsRFA f.gamma
+#' @importFrom evd dgev
+#' @importFrom evd dgumbel
+#' @importFrom stats dgamma
+#' @export
+#'
+#' @examples
 plot4server  <- function(dat, param, distr.index = 1) {
-  # plot fitted probability density function to estimated empirical pdf
-  # Returns nothing, saves nothing
+
   xmax <- max(dat)*1.2
   x <- seq(0, xmax, xmax / 100)
-  distr <- distr.name[distr.index]
+  # distr <- distr.name[distr.index]
   
   # Distribution specific y vector
   # PB: there is some logic erro with the NA management here. The app works, but this could be improved
@@ -31,10 +45,19 @@ plot4server  <- function(dat, param, distr.index = 1) {
          merge = TRUE, bg = "gray90")
 }
 
+
+#' plot4server_rlevel
+#' @description Plots return levels
+#' @param dat 
+#' @param param 
+#' @param distr.index 
+#'
+#' @return Returns nothing else than a plot, saves nothing  
+#' @export
+#'
+#' @examples
 plot4server_rlevel <- function(dat, param, distr.index = 1) {    
-  # Plot return levels
-  # Returns nothing, saves nothing  
-  
+
   # Common to all distributions
   xmin <- min(dat)
   xmax <- max(dat)*1.5
@@ -79,10 +102,18 @@ plot4server_rlevel <- function(dat, param, distr.index = 1) {
 }
 
 
+#' plot4server_cdf
+#' @description Plot estimated and empirical cumulative distribution function
+#' @param dat 
+#' @param param 
+#' @param distr 
+#'
+#' @return Returns nothing else than a plot, saves nothing
+#' @export
+#'
+#' @examples
 plot4server_cdf  <- function(dat, param, distr = 1) {
-  # Plot estimated and empirical cumulative distribution function
-  # Returns nothing, saves nothing
-  
+
   xmax <- max(dat)*1.2
   x <- seq(0, xmax, xmax / 100)
   
@@ -102,10 +133,18 @@ plot4server_cdf  <- function(dat, param, distr = 1) {
 }  
 
 
+#' plot4server_qq
+#' @description QQ plot of empiricial against modelled 
+#' @param dat 
+#' @param param 
+#' @param distr 
+#'
+#' @return Returns nothing else than a plot else than a plot, saves nothing
+#' @export
+#'
+#' @examples
 plot4server_qq  <- function(dat, param, distr = 1) { 
-  # QQ plot of empiricial against modelled 
-  # Returns nothing, saves nothing
-  
+
   # Compute plotting position 
   # pvalues <-(seq(1:length(dat))-0.35)/length(dat) # APL
   p.values <- (seq(1:length(dat)) - 0.5) / length(dat)   # Hazen, a traditional choice

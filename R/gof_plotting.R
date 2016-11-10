@@ -1,5 +1,15 @@
 # Functions that plot the GOF for 1 station or a group of stations
 
+
+#' plot4server_gof
+#'
+#' @param station 
+#' @param gof 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plot4server_gof  <- function(station, gof) { 
   
   par(mfrow = c(3, 3), oma=c(0, 0, 0, 0), cex = 1.2)
@@ -110,10 +120,16 @@ plot4server_gof  <- function(station, gof) {
 }
 
 
-
-# function like plot4server_gof but averaging over all stations filling the min/max years criteria
-
-
+#' plot4server_gof_averaged
+#' @description function like plot4server_gof but averaging over all stations filling the min/max years criteria
+#' @param gof 
+#' @param min_years 
+#' @param max_years 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plot4server_gof_averaged  <- function(gof, min_years, max_years) { 
   
   # adding a new stations2ave index for the averaging

@@ -1,6 +1,15 @@
 # Function for mapping all stations or groups of stations
 
-# MAP OF NORWAY WITH COLOR CHANGING ACCORDING TO THE NUMBER OF DATA.
+
+
+#' norway_map4server
+#' @description MAP OF NORWAY WITH COLOR CHANGING ACCORDING TO THE NUMBER OF DATA.
+#' @param selected.station 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 norway_map4server <- function(selected.station) {
 
   st.index <- which(station$number == selected.station)
@@ -43,6 +52,14 @@ norway_map4server <- function(selected.station) {
 }
 
 
+#' norway_map4groups
+#'
+#' @param group.index 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 norway_map4groups <- function(group.index) {
 
   print("in norway_map4groups function")
@@ -81,7 +98,17 @@ norway_map4groups <- function(group.index) {
   
 }
 
-# Function to map the fitted parameter values as color scale for each station
+
+#' norway_map4param_values
+#' @description Function to map the fitted parameter values as color scale for each station
+#' @param distr 
+#' @param method 
+#' @param param 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 norway_map4param_values <- function(distr, method, param) {
 
   distr.index <- which(distr.name == distr)
@@ -127,7 +154,17 @@ norway_map4param_values <- function(distr, method, param) {
   
 }
 
-# Histogram to go with the parameter mapping
+
+#' histo4param_values
+#' @description Histogram to go with the parameter mapping
+#' @param distr 
+#' @param method 
+#' @param param 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 histo4param_values <- function(distr, method, param) {
   
   distr.index <- which(distr.name == distr)
@@ -150,6 +187,14 @@ histo4param_values <- function(distr, method, param) {
 ######################## quick hack to optimise later
 
 
+#' norway_map4groups_tab1
+#' @description quick hack TO FINISH
+#' @param group.index 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 norway_map4groups_tab1 <- function(group.index) {
   
   print("in norway_map4groups function")
