@@ -4,7 +4,7 @@ cache: packages
 env:
   global:
     - GITHUB_REPO: "NVE/FlomKart_ShinyApp"
-    - GITHUB_PAT_FlomKart_ShinyAp
+    - GITHUB_PAT_FlomKart_ShinyApp
 
 before_script:
   - chmod +x ./_deploy.sh
