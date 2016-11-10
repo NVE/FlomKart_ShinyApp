@@ -1,5 +1,18 @@
 # Functions to plot rlevels and other indices that deoends on return periods. For 1 station or a group of stations
 
+
+
+#' plot4server_gof.rlevels
+#'
+#' @param station 
+#' @param gof 
+#' @param r.period 
+#' @param quantile 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plot4server_gof.rlevels  <- function(station, gof, r.period, quantile) { 
   
   print(gof)
@@ -111,7 +124,17 @@ plot4server_gof.rlevels  <- function(station, gof, r.period, quantile) {
   }
 }
 
-# NT is plotted differently than the other r.levels indices because it doens't have the extra "few_quantiles" dimension
+#' plot4server_nt
+#' @description NT is plotted differently than the other r.levels indices 
+#' because it doens't have the extra "few_quantiles" dimension
+#' @param station 
+#' @param gof 
+#' @param r.period 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plot4server_nt  <- function(station, gof, r.period) { 
   
   r.period.index <- which(rperiods.bs == r.period)  
@@ -225,6 +248,16 @@ plot4server_nt  <- function(station, gof, r.period) {
 
 ###################### Coefficient of variation
 
+#' plot4server_rlevels_coeffvar
+#' @description Plotting the coefficient of variation of return levels
+#' @param station 
+#' @param gof 
+#' @param r.period 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plot4server_rlevels_coeffvar  <- function(station, gof, r.period) { 
   
   print(gof)
@@ -346,6 +379,17 @@ plot4server_rlevels_coeffvar  <- function(station, gof, r.period) {
 }
 
 
+#' plot4server_rlevels_coeffvar_ave
+#'
+#' @param gof 
+#' @param r.period 
+#' @param min_years 
+#' @param max_years 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plot4server_rlevels_coeffvar_ave  <- function(gof, r.period, min_years, max_years) { 
   
   

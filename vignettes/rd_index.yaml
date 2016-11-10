@@ -1,0 +1,36 @@
+## layout the order in which topics are presented in the rd docs
+# 1. get a list of topics with the following:
+#    db <- tools::Rd_db("FlomKartShinyApp")
+#    topics <- gsub("\\.Rd", "", names(db))
+#    cat(paste(topics, collapse = "\n"))
+# 2. arrange the topic names into sections as desired in the format below:
+## If you need to see which topics are missing, do the following in addition:
+# cur <- yaml::yaml.load_file("rd_index.yaml")
+# cur <- unlist(lapply(cur, function(x) x$topics))
+# cat(paste(setdiff(topics, cur), collapse = "\n"))
+knitr:
+  eval: true
+
+sections:
+-
+  section_name: Package Functions
+  topics:
+    - histo4param_values
+    - norway_map4groups
+    - norway_map4groups_tab1
+    - norway_map4param_values
+    - norway_map4server
+    - plot4server
+    - plot4server_cdf
+    - plot4server_gof
+    - plot4server_gof.rlevels
+    - plot4server_gof_averaged
+    - plot4server_nt
+    - plot4server_qq
+    - plot4server_rlevel
+    - plot4server_rlevels_coeffvar
+    - plot4server_rlevels_coeffvar_ave
+    - qdata_barplot
+    - qdata_barplot_OLD
+    - qdata_boxplot
+    - qdata_boxplot_OLD

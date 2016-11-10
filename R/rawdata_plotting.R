@@ -12,6 +12,20 @@
 # 
 
 ########################################## TEST OF BOX PLOT FOR ALL STATIONS THAT HAVE MORE THAN N data
+
+
+
+#' qdata_boxplot_OLD
+#'
+#' @param min_years 
+#' @param max_years 
+#' @param min_height 
+#' @param max_height 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 qdata_boxplot_OLD <- function(min_years, max_years, min_height, max_height ) {
   
   keep <- c()
@@ -42,7 +56,22 @@ print(keep)
   # boxplot(sort(Q[keep, ], decreasing = TRUE), horizontal = TRUE, outwex = TRUE, names = "dff")
 }  
 
+
+
+
+#' qdata_barplot_OLD
+#'
+#' @param min_years 
+#' @param max_years 
+#' @param min_height 
+#' @param max_height 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 qdata_barplot_OLD <- function(min_years, max_years, min_height, max_height ) {
+  
     keep <- c()
     keep <- which(station$length_rec > min_years)
     keep <- intersect(keep, which(station$length_rec < max_years))
@@ -98,6 +127,16 @@ qdata_barplot_OLD <- function(min_years, max_years, min_height, max_height ) {
 #   max_vect <- colMaxs(flood_list[to_plot])
   
 
+
+
+#' qdata_boxplot
+#'
+#' @param station_nb 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 qdata_boxplot <- function(station_nb ) {
   
 #   norm_Q <- Q[1:220, ] / rowMeans(Q[1:220, ], na.rm = TRUE)
@@ -119,6 +158,14 @@ qdata_boxplot <- function(station_nb ) {
 }  
 
 
+#' qdata_barplot
+#'
+#' @param station_nb 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 qdata_barplot <- function(station_nb) {
  
   plot_ly(
