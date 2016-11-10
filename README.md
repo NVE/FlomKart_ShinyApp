@@ -1,22 +1,28 @@
 `Warning: This project is still under development and is not fully mature`
 
+Draft documentation website on [gh-pages](https://nve.github.io/FlomKart_ShinyApp/)
+
 # FlomKart_ShinyApp
 Code of the Shiny app developed for the FlomKart project
 
-## Running the app 
-
 #### Directly from Github
 
-See the branch "demo"
+You can run the "demo" version of the app directly from GitHub with those commands:
+```r
+# If you don't have the R Shiny package installed:
+install.packages('shiny')
+# Then load Shiny and run from Github:
+library(shiny)
+runGitHub("FlomKart_ShinyApp", "NVE", ref = "demo")
+```
 
 #### Locally
 
-To have a copy on your computer, first clone the git repository. Then set FlomKart_ShinyApp/R as the working directory, download both full NetCDF files to FlomKart_ShinyApp/data/ and finally use `runApp()` from the working directory:
+To have a copy on your computer, first clone the git repository. Then open the FlomKart_ShinyApp R project and download both full NetCDF files to FlomKart_ShinyApp/data/.
+Finally use `runApp()` from the working directory:
 
 ```R
 # First clone the repository with git. You should have cloned it as
-# ~/FlomKart_ShinyApp. Set the working directory to the /R sub-folder and download the NetCDF files
-setwd("~/FlomKart_Shiny/R")
 
 # Download the data either via the following links, or with R using the code provided below:
 # https://www.dropbox.com/s/yyhbts8er96iggb/flood_database.nc?dl=0
@@ -57,3 +63,4 @@ One issue for one purpose. Don't add more than one bug, feature request, documen
 - If you need support, e.g., installation issues or upgrade issues, please add **[Support]** at the beginning of the title. This helps us to easily identify the most common support issues, and provide solutions in a separate page.
 - If you have a general question, add **[Question]** at the beginning of the title.
 - If you've an issue that doesn't fall into any of these categories, then it'd be helpful if you could add **[Misc]** to your title.
+
