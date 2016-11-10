@@ -9,6 +9,10 @@ Code of the Shiny app developed for the FlomKart project
 
 You can run the "demo" version of the app directly from GitHub with those commands:
 ```r
+# First install the supporting functions
+# Make sure you have devtools installed "install.packages('shiny')" and then:
+library(devtoools)
+install_github("NVE/FlomKart_ShinyApp", ref = "demo")
 # If you don't have the R Shiny package installed:
 install.packages('shiny')
 # Then load Shiny and run from Github:
