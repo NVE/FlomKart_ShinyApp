@@ -1,0 +1,797 @@
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc" />
+
+  
+  
+  <title>FlomKart Shiny App</title>
+
+    <script src="rd_files/jquery-1.11.3/jquery.min.js"></script>
+  <link href="rd_files/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="rd_files/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+  <script src="rd_files/bootstrap-3.3.2/shim/html5shiv.min.js"></script>
+  <script src="rd_files/bootstrap-3.3.2/shim/respond.min.js"></script>
+  <link href="rd_files/highlight-8.4/tomorrow.css" rel="stylesheet" />
+  <script src="rd_files/highlight-8.4/highlight.pack.js"></script>
+  <link href="rd_files/fontawesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+  <script src="rd_files/stickykit-1.1.1/sticky-kit.min.js"></script>
+  <script src="rd_files/jqueryeasing-1.3/jquery.easing.min.js"></script>
+  <link href="rd_files/recliner-0.2.2/recliner.css" rel="stylesheet" />
+  <script src="rd_files/recliner-0.2.2/recliner.min.js"></script>
+  <script src="rd_files/recliner-0.2.2/onload.js"></script>
+  <link href="rd_files/packagedocs-0.0.1/pd.css" rel="stylesheet" />
+  <script src="rd_files/packagedocs-0.0.1/pd.js"></script>
+  <script src="rd_files/packagedocs-0.0.1/pd-sticky-toc.js"></script>
+  
+  
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
+
+<body>
+
+  
+  <header class="navbar navbar-white navbar-fixed-top" role="banner" id="header">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+                <a href="index.html" class="navbar-brand page-scroll">
+        FlomKart Shiny App - Supporting functions
+        </a>
+      </div>
+            <nav class="collapse navbar-collapse" role="navigation">
+        <ul class="nav nav-pills pull-right">
+<li>
+<a href='index.html'>Docs</a>
+</li>
+<li class="active">
+<a href='rd.html'>Package Ref</a>
+</li>
+        </ul>
+      </nav>
+          </div>
+  </header>
+
+  <!-- Begin Body -->
+  <div class="container">
+    <div class="row">
+            <div class="col-md-3" id="sidebar-col">
+        <div id="toc">
+          <ul>
+          <li><a href="#package-functions">Package Functions</a><ul>
+          <li><a href="#histo4param_values">histo4param_values</a></li>
+          <li><a href="#norway_map4groups">norway_map4groups</a></li>
+          <li><a href="#norway_map4groups_tab1">norway_map4groups_tab1</a></li>
+          <li><a href="#norway_map4param_values">norway_map4param_values</a></li>
+          <li><a href="#norway_map4server">norway_map4server</a></li>
+          <li><a href="#plot4server">plot4server</a></li>
+          <li><a href="#plot4server_cdf">plot4server_cdf</a></li>
+          <li><a href="#plot4server_gof">plot4server_gof</a></li>
+          <li><a href="#plot4server_gof.rlevels">plot4server_gof.rlevels</a></li>
+          <li><a href="#plot4server_gof_averaged">plot4server_gof_averaged</a></li>
+          <li><a href="#plot4server_nt">plot4server_nt</a></li>
+          <li><a href="#plot4server_qq">plot4server_qq</a></li>
+          <li><a href="#plot4server_rlevel">plot4server_rlevel</a></li>
+          <li><a href="#plot4server_rlevels_coeffvar">plot4server_rlevels_coeffvar</a></li>
+          <li><a href="#plot4server_rlevels_coeffvar_ave">plot4server_rlevels_coeffvar_ave</a></li>
+          <li><a href="#qdata_barplot">qdata_barplot</a></li>
+          <li><a href="#qdata_barplot_old">qdata_barplot_OLD</a></li>
+          <li><a href="#qdata_boxplot">qdata_boxplot</a></li>
+          <li><a href="#qdata_boxplot_old">qdata_boxplot_OLD</a></li>
+          </ul></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9" id="content-col">
+      
+<div id="content-top"></div>
+<h1>
+A list a functions to support the FlomKart Shiny app
+</h1>
+<p>
+<strong>Authors:</strong> <a href="mailto:fbaffie@gmail.com">Florian Kobierska Baffie</a> [aut, cre]
+</p>
+<p>
+<strong>Version:</strong> 0.1
+</p>
+<p>
+<strong>License:</strong> see license.md
+</p>
+<h4>
+Description
+</h4>
+<p>
+This package was developed for the FlomKart project. It contains functions used by the shiny app
+</p>
+<h4>
+Imports
+</h4>
+<p>
+leaflet, magrittr, evd, nsRFA, stats
+</p>
+<h4>
+Suggests
+</h4>
+<p>
+testthat, packagedocs
+</p>
+<div id="package-functions" class="section level1">
+<h1>Package Functions</h1>
+<div id="histo4param_values" class="section level2">
+<h2>histo4param_values</h2>
+<a id="histo4param_values_alias"></a>
+<h3>
+histo4param_values
+</h3>
+<p class="rd-p">
+Histogram to go with the parameter mapping
+</p>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>histo4param_values(distr, method, param)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+distr
+</dt>
+<dd class="rd-dd">
+Histogram to go with the parameter mapping
+</dd>
+<dt>
+method
+</dt>
+<dd class="rd-dd">
+Histogram to go with the parameter mapping
+</dd>
+<dt>
+param
+</dt>
+<dd class="rd-dd">
+Histogram to go with the parameter mapping
+</dd>
+</dl>
+</div>
+<div id="norway_map4groups" class="section level2">
+<h2>norway_map4groups</h2>
+<a id="norway_map4groups_alias"></a>
+<h3>
+norway_map4groups
+</h3>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>norway_map4groups(group.index)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+group.index
+</dt>
+<dd class="rd-dd">
+</dd>
+</dl>
+</div>
+<div id="norway_map4groups_tab1" class="section level2">
+<h2>norway_map4groups_tab1</h2>
+<a id="norway_map4groups_tab1_alias"></a>
+<h3>
+norway_map4groups_tab1
+</h3>
+<p class="rd-p">
+quick hack TO FINISH
+</p>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>norway_map4groups_tab1(group.index)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+group.index
+</dt>
+<dd class="rd-dd">
+quick hack TO FINISH
+</dd>
+</dl>
+</div>
+<div id="norway_map4param_values" class="section level2">
+<h2>norway_map4param_values</h2>
+<a id="norway_map4param_values_alias"></a>
+<h3>
+norway_map4param_values
+</h3>
+<p class="rd-p">
+Function to map the fitted parameter values as color scale for each station
+</p>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>norway_map4param_values(distr, method, param)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+distr
+</dt>
+<dd class="rd-dd">
+Function to map the fitted parameter values as color scale for each station
+</dd>
+<dt>
+method
+</dt>
+<dd class="rd-dd">
+Function to map the fitted parameter values as color scale for each station
+</dd>
+<dt>
+param
+</dt>
+<dd class="rd-dd">
+Function to map the fitted parameter values as color scale for each station
+</dd>
+</dl>
+</div>
+<div id="norway_map4server" class="section level2">
+<h2>norway_map4server</h2>
+<a id="norway_map4server_alias"></a>
+<h3>
+norway_map4server
+</h3>
+<p class="rd-p">
+MAP OF NORWAY WITH COLOR CHANGING ACCORDING TO THE NUMBER OF DATA.
+</p>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>norway_map4server(selected.station)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+selected.station
+</dt>
+<dd class="rd-dd">
+MAP OF NORWAY WITH COLOR CHANGING ACCORDING TO THE NUMBER OF DATA.
+</dd>
+</dl>
+</div>
+<div id="plot4server" class="section level2">
+<h2>plot4server</h2>
+<a id="plot4server_alias"></a>
+<h3>
+plot4server
+</h3>
+<p class="rd-p">
+plot fitted probability density function to estimated empirical pdf
+</p>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>plot4server(dat, param, distr.index&nbsp;=&nbsp;1)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+dat
+</dt>
+<dd class="rd-dd">
+plot fitted probability density function to estimated empirical pdf
+</dd>
+<dt>
+param
+</dt>
+<dd class="rd-dd">
+plot fitted probability density function to estimated empirical pdf
+</dd>
+<dt>
+distr.index
+</dt>
+<dd class="rd-dd">
+plot fitted probability density function to estimated empirical pdf
+</dd>
+</dl>
+<h4>
+Value
+</h4>
+<p class="rd-p">
+<dl>
+Returns nothing else than a plot, saves nothing
+</dl>
+</p>
+</div>
+<div id="plot4server_cdf" class="section level2">
+<h2>plot4server_cdf</h2>
+<a id="plot4server_cdf_alias"></a>
+<h3>
+plot4server_cdf
+</h3>
+<p class="rd-p">
+Plot estimated and empirical cumulative distribution function
+</p>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>plot4server_cdf(dat, param, distr&nbsp;=&nbsp;1)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+dat
+</dt>
+<dd class="rd-dd">
+Plot estimated and empirical cumulative distribution function
+</dd>
+<dt>
+param
+</dt>
+<dd class="rd-dd">
+Plot estimated and empirical cumulative distribution function
+</dd>
+<dt>
+distr
+</dt>
+<dd class="rd-dd">
+Plot estimated and empirical cumulative distribution function
+</dd>
+</dl>
+<h4>
+Value
+</h4>
+<p class="rd-p">
+<dl>
+Returns nothing else than a plot, saves nothing
+</dl>
+</p>
+</div>
+<div id="plot4server_gof" class="section level2">
+<h2>plot4server_gof</h2>
+<a id="plot4server_gof_alias"></a>
+<h3>
+plot4server_gof
+</h3>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>plot4server_gof(station, gof)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+station
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+gof
+</dt>
+<dd class="rd-dd">
+</dd>
+</dl>
+</div>
+<div id="plot4server_gof.rlevels" class="section level2">
+<h2>plot4server_gof.rlevels</h2>
+<a id="plot4server_gof.rlevels_alias"></a>
+<h3>
+plot4server_gof.rlevels
+</h3>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>plot4server_gof.rlevels(station, gof, r.period, quantile)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+station
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+gof
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+r.period
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+quantile
+</dt>
+<dd class="rd-dd">
+</dd>
+</dl>
+</div>
+<div id="plot4server_gof_averaged" class="section level2">
+<h2>plot4server_gof_averaged</h2>
+<a id="plot4server_gof_averaged_alias"></a>
+<h3>
+plot4server_gof_averaged
+</h3>
+<p class="rd-p">
+function like plot4server_gof but averaging over all stations filling the min/max years criteria
+</p>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>plot4server_gof_averaged(gof, min_years, max_years)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+gof
+</dt>
+<dd class="rd-dd">
+function like plot4server_gof but averaging over all stations filling the min/max years criteria
+</dd>
+<dt>
+min_years
+</dt>
+<dd class="rd-dd">
+function like plot4server_gof but averaging over all stations filling the min/max years criteria
+</dd>
+<dt>
+max_years
+</dt>
+<dd class="rd-dd">
+function like plot4server_gof but averaging over all stations filling the min/max years criteria
+</dd>
+</dl>
+</div>
+<div id="plot4server_nt" class="section level2">
+<h2>plot4server_nt</h2>
+<a id="plot4server_nt_alias"></a>
+<h3>
+plot4server_nt
+</h3>
+<p class="rd-p">
+NT is plotted differently than the other r.levels indices because it doens’t have the extra “few_quantiles” dimension
+</p>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>plot4server_nt(station, gof, r.period)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+station
+</dt>
+<dd class="rd-dd">
+NT is plotted differently than the other r.levels indices because it doens’t have the extra “few_quantiles” dimension
+</dd>
+<dt>
+gof
+</dt>
+<dd class="rd-dd">
+NT is plotted differently than the other r.levels indices because it doens’t have the extra “few_quantiles” dimension
+</dd>
+<dt>
+r.period
+</dt>
+<dd class="rd-dd">
+NT is plotted differently than the other r.levels indices because it doens’t have the extra “few_quantiles” dimension
+</dd>
+</dl>
+</div>
+<div id="plot4server_qq" class="section level2">
+<h2>plot4server_qq</h2>
+<a id="plot4server_qq_alias"></a>
+<h3>
+plot4server_qq
+</h3>
+<p class="rd-p">
+QQ plot of empiricial against modelled
+</p>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>plot4server_qq(dat, param, distr&nbsp;=&nbsp;1)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+dat
+</dt>
+<dd class="rd-dd">
+QQ plot of empiricial against modelled
+</dd>
+<dt>
+param
+</dt>
+<dd class="rd-dd">
+QQ plot of empiricial against modelled
+</dd>
+<dt>
+distr
+</dt>
+<dd class="rd-dd">
+QQ plot of empiricial against modelled
+</dd>
+</dl>
+<h4>
+Value
+</h4>
+<p class="rd-p">
+<dl>
+Returns nothing else than a plot else than a plot, saves nothing
+</dl>
+</p>
+</div>
+<div id="plot4server_rlevel" class="section level2">
+<h2>plot4server_rlevel</h2>
+<a id="plot4server_rlevel_alias"></a>
+<h3>
+plot4server_rlevel
+</h3>
+<p class="rd-p">
+Plots return levels
+</p>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>plot4server_rlevel(dat, param, distr.index&nbsp;=&nbsp;1)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+dat
+</dt>
+<dd class="rd-dd">
+Plots return levels
+</dd>
+<dt>
+param
+</dt>
+<dd class="rd-dd">
+Plots return levels
+</dd>
+<dt>
+distr.index
+</dt>
+<dd class="rd-dd">
+Plots return levels
+</dd>
+</dl>
+<h4>
+Value
+</h4>
+<p class="rd-p">
+<dl>
+Returns nothing else than a plot, saves nothing
+</dl>
+</p>
+</div>
+<div id="plot4server_rlevels_coeffvar" class="section level2">
+<h2>plot4server_rlevels_coeffvar</h2>
+<a id="plot4server_rlevels_coeffvar_alias"></a>
+<h3>
+plot4server_rlevels_coeffvar
+</h3>
+<p class="rd-p">
+Plotting the coefficient of variation of return levels
+</p>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>plot4server_rlevels_coeffvar(station, gof, r.period)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+station
+</dt>
+<dd class="rd-dd">
+Plotting the coefficient of variation of return levels
+</dd>
+<dt>
+gof
+</dt>
+<dd class="rd-dd">
+Plotting the coefficient of variation of return levels
+</dd>
+<dt>
+r.period
+</dt>
+<dd class="rd-dd">
+Plotting the coefficient of variation of return levels
+</dd>
+</dl>
+</div>
+<div id="plot4server_rlevels_coeffvar_ave" class="section level2">
+<h2>plot4server_rlevels_coeffvar_ave</h2>
+<a id="plot4server_rlevels_coeffvar_ave_alias"></a>
+<h3>
+plot4server_rlevels_coeffvar_ave
+</h3>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>plot4server_rlevels_coeffvar_ave(gof, r.period, min_years, max_years)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+gof
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+r.period
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+min_years
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+max_years
+</dt>
+<dd class="rd-dd">
+</dd>
+</dl>
+</div>
+<div id="qdata_barplot" class="section level2">
+<h2>qdata_barplot</h2>
+<a id="qdata_barplot_alias"></a>
+<h3>
+qdata_barplot
+</h3>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>qdata_barplot(station_nb)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+station_nb
+</dt>
+<dd class="rd-dd">
+</dd>
+</dl>
+</div>
+<div id="qdata_barplot_old" class="section level2">
+<h2>qdata_barplot_OLD</h2>
+<a id="qdata_barplot_OLD_alias"></a>
+<h3>
+qdata_barplot_OLD
+</h3>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>qdata_barplot_OLD(min_years, max_years, min_height, max_height)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+min_years
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+max_years
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+min_height
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+max_height
+</dt>
+<dd class="rd-dd">
+</dd>
+</dl>
+</div>
+<div id="qdata_boxplot" class="section level2">
+<h2>qdata_boxplot</h2>
+<a id="qdata_boxplot_alias"></a>
+<h3>
+qdata_boxplot
+</h3>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>qdata_boxplot(station_nb)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+station_nb
+</dt>
+<dd class="rd-dd">
+</dd>
+</dl>
+</div>
+<div id="qdata_boxplot_old" class="section level2">
+<h2>qdata_boxplot_OLD</h2>
+<a id="qdata_boxplot_OLD_alias"></a>
+<h3>
+qdata_boxplot_OLD
+</h3>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>qdata_boxplot_OLD(min_years, max_years, min_height, max_height)</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+min_years
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+max_years
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+min_height
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+max_height
+</dt>
+<dd class="rd-dd">
+</dd>
+</dl>
+</div>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div id="footer">
+    <div class="container">
+      <div class="col-md-6">
+              </div>
+      <div class="col-md-6">
+        <p class="pull-right">created with <a href="https://github.com/hafen/packagedocs">packagedocs</a>
+                  </p>
+      </div>
+    </div>
+  </div>
+
+  
+</body>
+</html>
