@@ -7,7 +7,24 @@ env:
     - GITHUB_PAT_FlomKart_ShinyApp
 
 before_script:
-  - chmod +x ./_deploy.sh
+  # install the pkg so it can be used as a vig builder (only necessary for packagedocs)
+  - Rscript -e "devtools::install()"
+
+# install locally to avoid rev dep
+r_binary_packages:
+  # - covr # code coverage check
+  - lintr # code lint
+
+r_github_packages:
+  - schloerke/travisDrat # deploy to drat
+
+after_success:
+  # install the pkg so it can be used as a vig builder (only necessary for packagedocs)
+  - Rscript -e "devtools::install()"
+  - Rscript -e "packagedocs::deploy_travis()"
+  - Rscript -e "packagedocs::deploy_travis(valid_branches = 'dev', push_branch = 'gh-pages-dev')"
+  - Rscript -e "travisDrat::deploy_drat()"
+
 
 script:
   - ./_deploy.sh  
