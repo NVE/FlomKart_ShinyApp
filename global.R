@@ -23,11 +23,13 @@ library(DT)           # for the data tables
 library(shinyBS)      # for the interactive popover features
 library(plotly)       # for interactive graphs
 
-source('R/rawdata_plotting.R')
-source('R/mapping.R')
-source('R/main_plotting.R')  # plots for the first "main plots" subtab
-source('R/gof_plotting.R')  # GOF plots
-source('R/rperiods_plotting.R')  # Plots that are a function of return periods (return levels, QS, BS, NT)
+library(FlomKartShinyApp) 
+
+# source('R/rawdata_plotting.R')
+# source('R/mapping.R')
+# source('R/main_plotting.R')  # plots for the first "main plots" subtab
+# source('R/gof_plotting.R')  # GOF plots
+# source('R/rperiods_plotting.R')  # Plots that are a function of return periods (return levels, QS, BS, NT)
 
 
 # dat <- read.csv("//nve/fil/h/HM/Interne Prosjekter/Flomkart/Model_fitting/Florian/Data/AMS_table_updated.csv", sep=";", as.is=TRUE)  
