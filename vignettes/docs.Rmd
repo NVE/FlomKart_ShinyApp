@@ -29,7 +29,9 @@ rdl <- function(x) packagedocs::rd_link(deparse(substitute(x)))
 
 This is an R shiny app to visualize the results of flood frequency analysis at NVE.
 
-# How was it coded
+# How was it coded?
 
 In 'Package Ref', you'll find the documentation of all the packaged functions that are used by the app.
 The app uses 'flood_database.nc' and 'gof.nc' as data sources. Those files are produced by running the 'FlomKart' package ([doc](http://NVE.github.io/FlomKart) and [code](http://github.com/NVE/FlomKart))
+
+For the moment, the functions 'global.R', 'server.R' and 'ui.R' have not been packaged and are stored in the root directory of the repository.
