@@ -14,6 +14,7 @@ vignette: |
 navpills: |
   <li class="active"><a href='index.html'>Docs</a></li>
   <li><a href='rd.html'>Package Ref</a></li>
+  <li><a href='https://github.com/NVE/fitdistrib'>Github <i class='fa fa-github'></i></a></li>
 ---
 
 ```{r global_options, include=FALSE}
@@ -24,24 +25,11 @@ knitr::opts_chunk$set(comment = NA)
 rdl <- function(x) packagedocs::rd_link(deparse(substitute(x)))
 ```
 
-# Header 1
+# What is FlomKartShinyApp? 
 
-Welcome to the FlomKartShinyApp Documentation documentation page.
+This is an R shiny app to visualize the results of flood frequency analysis at NVE.
 
-# Example
+# How was it coded
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-You can embed an R code chunk like this:
-
-```{r}
-summary(cars)
-```
-
-You can also embed plots, for example:
-
-```{r, echo=FALSE}
-plot(cars)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+In 'Package Ref', you'll find the documentation of all the packaged functions that are used by the app.
+The app uses 'flood_database.nc' and 'gof.nc' as data sources. Those files are produced by running the 'FlomKart' package ([doc](http://NVE.github.io/FlomKart) and [code](http://github.com/NVE/FlomKart))
