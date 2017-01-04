@@ -62,16 +62,20 @@ return.periods <- var.get.nc(gof_nc, "r.periods")
 
 # For the map
 station <- list()
-station$name <- var.get.nc(nc, "station.name")
+# station$name <- var.get.nc(nc, "station.name")  # TO FIX AND UNCOMMENT
 station$number <- var.get.nc(nc, "station.number")
 # station$nve_nb <- var.get.nc(nc, "station.nve_nb")
-station$utmN <- var.get.nc(nc, "station.utmN")
-station$utmE <- var.get.nc(nc, "station.utmE")
+
+# station$utmN <- var.get.nc(nc, "station.utmN")  # DO WE NEED THOSE COORDINATES?
+# station$utmE <- var.get.nc(nc, "station.utmE")
+
+
 station$long <- var.get.nc(nc, "station.long")
 station$lat <- var.get.nc(nc, "station.lat")
-station$catchment.size <- var.get.nc(nc, "catchment.size")
-station$catchment.min.height <- var.get.nc(nc, "catchment.min.height")
-station$catchment.max.height <- var.get.nc(nc, "catchment.max.height")
+
+# station$catchment.size <- var.get.nc(nc, "catchment.size")  # TO FIX AND UNCOMMENT
+# station$catchment.min.height <- var.get.nc(nc, "catchment.min.height")  # TO FIX AND UNCOMMENT
+# station$catchment.max.height <- var.get.nc(nc, "catchment.max.height")  # TO FIX AND UNCOMMENT
 
 # dates <- var.get.nc(nc, "dates")
 years <- var.get.nc(nc, "years")
@@ -117,18 +121,11 @@ gev.shape.estimate <- var.get.nc(nc, "param.estimate",
 stations.summary.df <- data.frame("Station name" = station$name, 
                                   
                                   "Length of record" = station$length_rec,
-                                  "Shape param GEV_Lmom" = gev.shape.estimate[ , 2],
-                                  "Catchment area" = station$catchment.size,
-                                  "Min elevation" = station$catchment.min.height,
-                                  "Max elevation" = station$catchment.max.height
+                                  "Shape param GEV_Lmom" = gev.shape.estimate[ , 2]
+                                  # "Catchment area" = station$catchment.size,
+                                  # "Min elevation" = station$catchment.min.height,   # TO FIX AND UNCOMMENT
+                                  # "Max elevation" = station$catchment.max.height
 )  # taken out "NVE number" = station$nve_nb,
-
-
-
-
-
-
-
 
 
 
