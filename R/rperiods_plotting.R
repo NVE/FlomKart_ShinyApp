@@ -393,13 +393,15 @@ plot4server_rlevels_coeffvar  <- function(station, gof, r.period) {
 plot4server_rlevels_coeffvar_ave  <- function(gof, r.period, min_years, max_years) { 
   
   
-  stations2ave <- stations2average(as.numeric(min_years), as.numeric(max_years))
-  maxindex2plot <- 15
+  stations2ave <- stations2average(min_years, max_years)
+  maxindex2plot <- 13
   
   print(gof)
   print(r.period)
   print(stations2ave)
+  print("done printint")
   
+
   if (gof == "BS" || gof == "QS") {
     r.period.index <- which(rperiods.bs == r.period)  
   } else {r.period.index <- which(return.periods == r.period)}

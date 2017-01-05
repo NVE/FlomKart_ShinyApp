@@ -344,11 +344,12 @@ stations2average <- function(min_years, max_years) {
       if (station$length_rec[st] <= max_years) {
         stations2ave <- c(stations2ave, st)
         # print("prout1")
+        # print(st)
         
       }
     }
   }
-  
+  print(stations2ave)
   invisible(stations2ave)
 }
 

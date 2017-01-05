@@ -229,10 +229,11 @@ server <- function(session,input, output) {
     plot4server_rlevels_coeffvar(old_station.index(), input$coeffvar2plot, input$r.period4coefvar)
   })
   output$plot.gof_averaged <- renderPlot({
-    plot4server_gof_averaged(input$gof4ave, input$min_years4ave, input$max_years4ave)
+    plot4server_gof_averaged(input$gof4ave, as.numeric(input$min_years4ave), as.numeric(input$max_years4ave))
   })
   output$plot.rlevels_coeff_averaged <- renderPlot({
-    plot4server_rlevels_coeffvar_ave(input$coeffvar2plot_ave, input$r.period4coefvar_ave, input$min_years4coeff_ave, input$max_years4coeff_ave)
+    plot4server_rlevels_coeffvar_ave(input$coeffvar2plot_ave, as.numeric(input$r.period4coefvar_ave), 
+                                     as.numeric(input$min_years4coeff_ave), as.numeric(input$max_years4coeff_ave))
   })
   
   
