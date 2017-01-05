@@ -393,11 +393,13 @@ plot4server_rlevels_coeffvar  <- function(station, gof, r.period) {
 plot4server_rlevels_coeffvar_ave  <- function(gof, r.period, min_years, max_years) { 
   
   
-  stations2ave <- stations2average(min_years, max_years)
+  stations2ave <- stations2average(as.numeric(min_years), as.numeric(max_years))
   maxindex2plot <- 15
   
   print(gof)
   print(r.period)
+  print(stations2ave)
+  
   if (gof == "BS" || gof == "QS") {
     r.period.index <- which(rperiods.bs == r.period)  
   } else {r.period.index <- which(return.periods == r.period)}
@@ -421,15 +423,15 @@ plot4server_rlevels_coeffvar_ave  <- function(gof, r.period, min_years, max_year
       for (st in seq(along = stations2ave)) {
         
         if (gof == "NT") {
-          temp2plot_raw[st, m, ] <- var.get.nc(gof_nc, gof, start = c(station$index[stations2ave[st]], d, m, 1, r.period.index), 
+          temp2plot_raw[st, m, ] <- var.get.nc(gof_nc, gof, start = c(stations2ave[st], d, m, 1, r.period.index), 
                                                count = c(1, 1, 1, length(sampling_years), 1))
           
           
         } else {
           # coefficient of variation = st_dev / mean
-          temp2plot_raw[st, m, ] <- var.get.nc(gof_nc, gof, start = c(station$index[stations2ave[st]], d, m, 1, 2, r.period.index), 
+          temp2plot_raw[st, m, ] <- var.get.nc(gof_nc, gof, start = c(stations2ave[st], d, m, 1, 2, r.period.index), 
                                                count = c(1, 1, 1, length(sampling_years), 1, 1)) /
-            var.get.nc(gof_nc, gof, start = c(station$index[stations2ave[st]], d, m, 1, 1, r.period.index), 
+            var.get.nc(gof_nc, gof, start = c(stations2ave[st], d, m, 1, 1, r.period.index), 
                        count = c(1, 1, 1, length(sampling_years), 1, 1))
           
         }
@@ -495,13 +497,13 @@ plot4server_rlevels_coeffvar_ave  <- function(gof, r.period, min_years, max_year
         
         if (gof == "NT") {
           
-          temp2plot_raw[st, d, ] <- var.get.nc(gof_nc, gof, start = c(station$index[stations2ave[st]], d, m, 1, r.period.index), 
+          temp2plot_raw[st, d, ] <- var.get.nc(gof_nc, gof, start = c(stations2ave[st], d, m, 1, r.period.index), 
                                                count = c(1, 1, 1, length(sampling_years), 1)) 
           
         } else {
-          temp2plot_raw[st, d, ] <- var.get.nc(gof_nc, gof, start = c(station$index[stations2ave[st]], d, m, 1, 2, r.period.index), 
+          temp2plot_raw[st, d, ] <- var.get.nc(gof_nc, gof, start = c(stations2ave[st], d, m, 1, 2, r.period.index), 
                                                count = c(1, 1, 1, length(sampling_years), 1, 1)) /
-            var.get.nc(gof_nc, gof, start = c(station$index[stations2ave[st]], d, m, 1, 1, r.period.index), 
+            var.get.nc(gof_nc, gof, start = c(stations2ave[st], d, m, 1, 1, r.period.index), 
                        count = c(1, 1, 1, length(sampling_years), 1, 1))     
           
         }

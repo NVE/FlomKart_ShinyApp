@@ -160,7 +160,11 @@ server <- function(session,input, output) {
 
   ## Below are reactive variables based on inputs selected in the UI ------------------
   
-  old_station.index <- reactive({ station$index[which(station$number == input$station)]  
+  # old_station.index <- reactive({ station$index[which(station$number == input$station)]  # OLD CODE COMMENTED: NEED TO TIDY UP
+    
+    old_station.index <- reactive({ which(station$number == input$station)  
+    
+    
     # station$index is called in order to go back
     # to the original indexes of the nc file
   })

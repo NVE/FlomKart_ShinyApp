@@ -62,7 +62,7 @@ return.periods <- var.get.nc(gof_nc, "r.periods")
 
 # For the map
 station <- list()
-# station$name <- var.get.nc(nc, "station.name")  # TO FIX AND UNCOMMENT
+station$name <- var.get.nc(nc, "station.name")  
 station$number <- var.get.nc(nc, "station.number")
 # station$nve_nb <- var.get.nc(nc, "station.nve_nb")
 
@@ -73,9 +73,9 @@ station$number <- var.get.nc(nc, "station.number")
 station$long <- var.get.nc(nc, "station.long")
 station$lat <- var.get.nc(nc, "station.lat")
 
-# station$catchment.size <- var.get.nc(nc, "catchment.size")  # TO FIX AND UNCOMMENT
-# station$catchment.min.height <- var.get.nc(nc, "catchment.min.height")  # TO FIX AND UNCOMMENT
-# station$catchment.max.height <- var.get.nc(nc, "catchment.max.height")  # TO FIX AND UNCOMMENT
+station$catchment.size <- var.get.nc(nc, "catchment.size")  
+station$catchment.min.height <- var.get.nc(nc, "catchment.min.height")  
+station$catchment.max.height <- var.get.nc(nc, "catchment.max.height")  
 
 # dates <- var.get.nc(nc, "dates")
 years <- var.get.nc(nc, "years")
@@ -83,48 +83,56 @@ years <- var.get.nc(nc, "years")
 
 dim.random_runs <- var.get.nc(nc, "dim.random_runs")
 sampling_years <<- var.get.nc(nc, "sampling_years")
-sampling_years_full_record <- c(as.character(sampling_years), NA, NA, NA, NA, NA, NA, "FULL RECORD")
+sampling_years_full_record <- c(as.character(sampling_years), "FULL RECORD")  
 
 rperiods.bs <- c(2,5,10,15,20,30)  # Those are return periods for BS ans NT. They should be saved in the NetCDF
 
 ## How can the following be replaced by apply (# station$length_rec <- apply(na.omit(Q), length...)?)
-station$length_rec <- as.vector(rep(NA,length(station$number)))
+# REPLACE BY  var.get.nc(nc, "record.length")
+station$length_rec <- var.get.nc(nc, "record.length")
+# station$length_rec <- as.vector(rep(NA,length(station$number)))
 
-for (st in seq(along = station$number)) {
-  station$length_rec[st] <- length(as.vector(na.omit(Q[st, ])))
-}
+# for (st in seq(along = station$number)) {
+#   station$length_rec[st] <- length(as.vector(na.omit(Q[st, ])))
+# }
 
-keep <- which(!is.na(station$lat + station$long))
-## Lets keep only the stations that have more than 30 years of data
-keep <- intersect(keep, which(station$length_rec > 29))
+#### WILL PROBLABLY NOT BE NEEDED ANYMORE
 
-station$index <- keep
-station$length_rec <- station$length_rec[keep]
-station$name <- station$name[keep]
-station$number <- station$number[keep]
-# station$nve_nb <- station$nve_nb[keep]
-station$long <- station$long[keep]
-station$lat <- station$lat[keep]
-station$utmN <- station$utmN[keep]
-station$utmE <- station$utmE[keep]
-station$catchment.size <- station$catchment.size[keep]
-station$catchment.min.height <- station$catchment.min.height[keep]
-station$catchment.max.height <- station$catchment.max.height[keep]
+# keep <- which(!is.na(station$lat + station$long))
+# ## Lets keep only the stations that have more than 30 years of data
+# keep <- intersect(keep, which(station$length_rec > 29))
+# 
+station$index <- seq(1:length(station$number))  # it is a bit stupid but I think I had indexes before as I was not using every station
+# station$length_rec <- station$length_rec[keep]
+# station$name <- station$name[keep]
+# station$number <- station$number[keep]
+# # station$nve_nb <- station$nve_nb[keep]
+# station$long <- station$long[keep]
+# station$lat <- station$lat[keep]
+# # station$utmN <- station$utmN[keep]
+# # station$utmE <- station$utmE[keep]
+# station$catchment.size <- station$catchment.size[keep]
+# station$catchment.min.height <- station$catchment.min.height[keep]
+# station$catchment.max.height <- station$catchment.max.height[keep]
+
+#### WILL PROBLABLY NOT BE NEEDED ANYMORE END
+
+## PARAMETRIZE 14 = dim.length_rec <- length(sampling_years) + 1
 
 # adding the shape param for gev (it is the 3rd parameter)
 gev.shape.estimate <- var.get.nc(nc, "param.estimate", 
-                                 start = c(1, 3, 1, 3, 30, 1), # from each station, distr number 3, 
+                                 start = c(1, 3, 1, 3, 14, 1), # from each station, distr number 3, 
                                  # method number 1 to 4, parameter number 3, full length o record, random run number 1 
-                                 count = c(length(station$name), 1, 4, 1, 1, 1) ) 
+                                 count = c(length(station$number), 1, 4, 1, 1, 1) ) 
 
 # Create here the data frame that will be use in DT tables in the code
-stations.summary.df <- data.frame("Station name" = station$name, 
+stations.summary.df <- data.frame("Station name" = station$number, # need to fix this NAME PB
                                   
                                   "Length of record" = station$length_rec,
-                                  "Shape param GEV_Lmom" = gev.shape.estimate[ , 2]
-                                  # "Catchment area" = station$catchment.size,
-                                  # "Min elevation" = station$catchment.min.height,   # TO FIX AND UNCOMMENT
-                                  # "Max elevation" = station$catchment.max.height
+                                  "Shape param GEV_Lmom" = gev.shape.estimate[ , 2],
+                                  "Catchment area" = station$catchment.size,
+                                  "Min elevation" = station$catchment.min.height,   
+                                  "Max elevation" = station$catchment.max.height
 )  # taken out "NVE number" = station$nve_nb,
 
 
@@ -151,7 +159,7 @@ gof_summary <- function(gof, station) {
   
   for (m in seq(along = method.name)) {
     for (d in seq(along = distr.name)) {
-      gof.table[m,d] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 30, 1),
+      gof.table[m,d] <- var.get.nc(gof_nc, gof, start = c(station, d, m, 14, 1),
                                    count = c(1, 1, 1, 1, 1))  # in dataframe [row, column]
 #       print("print(gof.table[m,d])")
 #       print(gof.table[m,d])
@@ -211,17 +219,17 @@ gof_summary_rperiods <- function(gof, station, r.period) {
         print("r.period.index")
         print(r.period.index)
         r.period.index <- as.numeric(r.period.index)
-        print(c(station, d, m, 30, 1, r.period.index))
-      gof.table[m,d] <- round(var.get.nc(gof_nc, gof, start = c(station, d, m, 30, 1, r.period.index),
+        print(c(station, d, m, 14, 1, r.period.index))
+      gof.table[m,d] <- round(var.get.nc(gof_nc, gof, start = c(station, d, m, 14, 1, r.period.index),
                                          count = c(1, 1, 1, 1, 1, 1)), 0)  # in dataframe [row, column]
       } else {
         
         print("r.period.index")
         print(r.period.index)
         r.period.index <- as.numeric(r.period.index)
-        print(c(station, d, m, 30, 1, r.period.index))
+        print(c(station, d, m, 14, 1, r.period.index))
         
-      gof.table[m,d] <- round(var.get.nc(gof_nc, gof, start = c(station, d, m, 30, 1, r.period.index),
+      gof.table[m,d] <- round(var.get.nc(gof_nc, gof, start = c(station, d, m, 14, 1, r.period.index),
                                            count = c(1, 1, 1, 1, 1, 1)), 2)  # in dataframe [row, column] 
       }
     }
@@ -320,7 +328,7 @@ group.dfmaker <- function(group.indexes) {
 stations2average <- function(min_years, max_years) {
   
   stations2ave <- c()
-  print("entered the station2avergae function")
+  print("entered the station2average function")
   print(min_years)
   print(max_years)
   
@@ -335,7 +343,7 @@ stations2average <- function(min_years, max_years) {
     if (station$length_rec[st] >= min_years) {
       if (station$length_rec[st] <= max_years) {
         stations2ave <- c(stations2ave, st)
-        print("prout1")
+        # print("prout1")
         
       }
     }
