@@ -111,9 +111,9 @@ server <- function(session,input, output) {
     } else {
       output$random.panel <- renderUI({ sliderInput("random", 
                                                     "Browse the random runs", 
-                                                    value = 5,
+                                                    value = 25,
                                                     min = 1, 
-                                                    max = 10)
+                                                    max = 50)
       })
     } 
   }) 
