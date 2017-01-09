@@ -25,11 +25,11 @@ library(plotly)       # for interactive graphs
 
 library(FlomKartShinyApp) 
 
-# source('R/rawdata_plotting.R')
-# source('R/mapping.R')
-# source('R/main_plotting.R')  # plots for the first "main plots" subtab
-# source('R/gof_plotting.R')  # GOF plots
-# source('R/rperiods_plotting.R')  # Plots that are a function of return periods (return levels, QS, BS, NT)
+source('R/rawdata_plotting.R')
+source('R/mapping.R')
+source('R/main_plotting.R')  # plots for the first "main plots" subtab
+source('R/gof_plotting.R')  # GOF plots
+source('R/rperiods_plotting.R')  # Plots that are a function of return periods (return levels, QS, BS, NT)
 
 
 # dat <- read.csv("//nve/fil/h/HM/Interne Prosjekter/Flomkart/Model_fitting/Florian/Data/AMS_table_updated.csv", sep=";", as.is=TRUE)  
@@ -357,3 +357,23 @@ stations2average <- function(min_years, max_years) {
 
 
 
+
+
+##
+
+# st_selection <- which(norm_area < 0.05)
+# plot4server_rlevels_coeffvar_ave("QS", 10,30,150, st_selection)
+# 
+# st_selection <- which(norm_area > 0.05)
+# plot4server_rlevels_coeffvar_ave("QS", 10,30,150, st_selection)
+
+##
+
+
+
+# median_perc_lake <- median(na.omit(flood_metadata$perc_lake))
+# st_selection <- which(flood_metadata$perc_lake < median_perc_lake)
+# plot4server_rlevels_coeffvar_ave("QS", 10,30,150, st_selection)
+# 
+# st_selection <- which(flood_metadata$perc_lake > median_perc_lake)
+# plot4server_rlevels_coeffvar_ave("QS", 10,30,150, st_selection)

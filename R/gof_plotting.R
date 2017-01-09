@@ -130,18 +130,17 @@ plot4server_gof  <- function(station, gof) {
 #' @export
 #'
 #' @examples
-plot4server_gof_averaged  <- function(gof, min_years, max_years) { 
+plot4server_gof_averaged  <- function(gof, min_years, max_years, stations2ave = stations2average(min_years, max_years)) { 
   
   # adding a new stations2ave index for the averaging
-  stations2ave <- c()
+  # stations2ave <- c()
+  # stations2ave <- stations2average(min_years, max_years)
+  print(stations2ave)  # for debugging
   
   print("entered the plotting function")
   print(min_years)
   print(max_years)
-  stations2ave <- stations2average(min_years, max_years)
-  print(stations2ave)  # for debugging
-  print("prout2")
-  
+
   par(mfrow = c(3, 3), oma=c(0, 0, 0, 0), cex = 1.2)
   par(mar = c(4, 4, 2, 0))  # c(bottom, left, top, right)
   ## First subplot

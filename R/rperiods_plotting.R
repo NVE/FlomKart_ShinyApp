@@ -390,11 +390,11 @@ plot4server_rlevels_coeffvar  <- function(station, gof, r.period) {
 #' @export
 #'
 #' @examples
-plot4server_rlevels_coeffvar_ave  <- function(gof, r.period, min_years, max_years) { 
+plot4server_rlevels_coeffvar_ave  <- function(gof, r.period, min_years, max_years, stations2ave = stations2average(min_years, max_years)) { 
   
   
-  stations2ave <- stations2average(min_years, max_years)
-  maxindex2plot <- 13
+  # stations2ave <- stations2average(min_years, max_years)
+  maxindex2plot <- length(sampling_years)
   
   print(gof)
   print(r.period)
