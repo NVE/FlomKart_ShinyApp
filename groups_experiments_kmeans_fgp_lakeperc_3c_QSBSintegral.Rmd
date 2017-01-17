@@ -62,8 +62,27 @@ st_selection_3
 ## TO plot the clusters in 2D
 plot(to_cluster[1:2], xlab("fgp"), ylab("size"),
           col = stationsCluster$cluster,
+     
           pch = 20, cex = 3)
+legend("topright", inset = .05, c("Cluster 1","Cluster 2", "Cluster 3" ), cex = 1.2, bty = "n",
+             col = c("black", "red","green"),lty = c(1, 1, 1),lwd=c(3, 3, 3), merge = TRUE, bg = "gray90")
 
+
+# plot(to_cluster[1:2], xlab("fgp"), ylab("size"),
+# to_cluster[1:2][which(stationsCluster$cluster == 2),]
+# 
+# 
+# legend("topright", inset = .05, c("Cluster 1","Cluster 2", "Cluster 3" ), col = stationsCluster$cluster, lty = c(1, 1, 1),lwd=c(3, 3, 3), merge = TRUE, bg = "gray90") 
+# 
+# 
+#   d <- ggplot() + 
+#     # scale_colour_manual(
+#     # values = c("black", 
+#     #            "red",
+#     #            "blue")) + 
+#     geom_point(data = to_cluster[1:2], aes(x = fgp, y = lake, col = stationsCluster$cluster)) +
+#     theme_bw()
+# d
 
 ```
 

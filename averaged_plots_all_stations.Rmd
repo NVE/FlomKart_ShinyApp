@@ -32,6 +32,33 @@ st_selection_3 <- which(flood_metadata$record_length < q75)
 st_selection_4 <- seq(along = flood_metadata$record_length)
 ```
 
+## QS_integral
+
+```{r QS_integral_record_length_q25q50q75,  results = "asis", fig.height= 10, fig.width= 15, fig.keep = "all", fig.align='center'}
+gof_type <- "QS"
+returnPeriod <- 2
+
+plot4server_QSBS_ave(gof_type, returnPeriod,30,150, st_selection_1)
+plot4server_QSBS_ave(gof_type, returnPeriod,30,150, st_selection_2)
+plot4server_QSBS_ave(gof_type, returnPeriod,30,150, st_selection_3)
+plot4server_QSBS_ave(gof_type, returnPeriod,30,150, st_selection_4)
+```
+
+
+## BS_integral
+
+```{r BS_integral_record_length_q25q50q75,  results = "asis", fig.height= 10, fig.width= 15, fig.keep = "all", fig.align='center'}
+gof_type <- "BS"
+returnPeriod <- 2
+
+plot4server_QSBS_ave(gof_type, returnPeriod,30,150, st_selection_1)
+plot4server_QSBS_ave(gof_type, returnPeriod,30,150, st_selection_2)
+plot4server_QSBS_ave(gof_type, returnPeriod,30,150, st_selection_3)
+plot4server_QSBS_ave(gof_type, returnPeriod,30,150, st_selection_4)
+```
+
+
+
 ## QS
 
 #### QS 2y

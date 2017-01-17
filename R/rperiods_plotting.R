@@ -447,8 +447,23 @@ plot4server_rlevels_coeffvar_ave  <- function(gof, r.period, min_years, max_year
     
     if (all(is.na(temp2plot)) == FALSE) {
       
-      ymin <- min(temp2plot, na.rm = TRUE) * 0.9
-      ymax <- max(temp2plot, na.rm = TRUE) * 1.1
+
+      if (gof == "r.levels") {
+        ymin <- 0.05
+        ymax <- 0.4
+      } else if (gof == "KS") {
+        ymin <- 0.1
+        ymax <- 0.15
+      } else if (gof == "AD") {
+        ymin <- 0.7
+        ymax <- 2
+      } else {
+        ymin <- min(temp2plot, na.rm = TRUE) * 0.9
+        ymax <- max(temp2plot, na.rm = TRUE) * 1.1
+      }
+      
+     
+      
       xmax <- maxindex2plot   
       
       plot(temp2plot[1, 1:maxindex2plot], type = "l", lwd = 3, xaxt='n',
@@ -516,8 +531,20 @@ plot4server_rlevels_coeffvar_ave  <- function(gof, r.period, min_years, max_year
     }
     
     if (all(is.na(temp2plot)) == FALSE) {
-      ymin <- min(temp2plot, na.rm = TRUE) * 0.9
-      ymax <- max(temp2plot, na.rm = TRUE) * 1.1
+      if (gof == "r.levels") {
+        ymin <- 0.05
+        ymax <- 0.4
+      } else if (gof == "KS") {
+        ymin <- 0.1
+        ymax <- 0.15
+      } else if (gof == "AD") {
+        ymin <- 0.7
+        ymax <- 2
+      } else {
+        ymin <- min(temp2plot, na.rm = TRUE) * 0.9
+        ymax <- max(temp2plot, na.rm = TRUE) * 1.1
+      }
+      
       xmax <- maxindex2plot    
       
       plot(temp2plot[1, 1:maxindex2plot], type = "l", lwd = 3, xaxt='n',
@@ -637,8 +664,17 @@ plot4server_QSBS_ave  <- function(gof, r.period, min_years, max_years, stations2
     
     if (all(is.na(temp2plot)) == FALSE) {
       
-      ymin <- min(temp2plot, na.rm = TRUE) * 0.9
-      ymax <- max(temp2plot, na.rm = TRUE) * 1.1
+      # ymin <- min(temp2plot, na.rm = TRUE) * 0.9
+      # ymax <- max(temp2plot, na.rm = TRUE) * 1.1
+      if (gof == "QS") {
+        ymin <- 0.02
+        ymax <- 0.06
+      }
+      if (gof == "BS") {
+        ymin <- 0.01
+        ymax <- 0.05
+      }
+      
       xmax <- maxindex2plot   
       
       plot(temp2plot[1, 1:maxindex2plot], type = "l", lwd = 3, xaxt='n',
@@ -717,8 +753,18 @@ plot4server_QSBS_ave  <- function(gof, r.period, min_years, max_years, stations2
     }
     
     if (all(is.na(temp2plot)) == FALSE) {
-      ymin <- min(temp2plot, na.rm = TRUE) * 0.9
-      ymax <- max(temp2plot, na.rm = TRUE) * 1.1
+      # ymin <- min(temp2plot, na.rm = TRUE) * 0.9
+      # ymax <- max(temp2plot, na.rm = TRUE) * 1.1
+      
+      if (gof == "QS") {
+        ymin <- 0.02
+        ymax <- 0.06
+      }
+      if (gof == "BS") {
+        ymin <- 0.01
+        ymax <- 0.05
+      }
+      
       xmax <- maxindex2plot    
       
       plot(temp2plot[1, 1:maxindex2plot], type = "l", lwd = 3, xaxt='n',
