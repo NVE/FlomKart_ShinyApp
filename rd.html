@@ -6,7 +6,7 @@
 
   
   
-  <title>FlomKart Shiny App</title>
+  <title>FlomKartShinyApp Documentation</title>
 
     <script src="rd_files/jquery-1.11.3/jquery.min.js"></script>
   <link href="rd_files/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet" />
@@ -45,19 +45,16 @@
           <span class="icon-bar"></span>
         </button>
                 <a href="index.html" class="navbar-brand page-scroll">
-        FlomKart Shiny App - Supporting functions
+        FlomKartShinyApp Documentation - A list a functions to support the FlomKart Shiny app
         </a>
       </div>
             <nav class="collapse navbar-collapse" role="navigation">
         <ul class="nav nav-pills pull-right">
 <li>
-<a href='index.html'>Docs</a>
+<a href='docs.html'>Docs</a>
 </li>
 <li class="active">
 <a href='rd.html'>Package Ref</a>
-</li>
-<li>
-<a href='https://github.com/NVE/FlomKart_ShinyApp'>Github <i class='fa fa-github'></i></a>
 </li>
         </ul>
       </nav>
@@ -83,6 +80,7 @@
           <li><a href="#plot4server_gof_averaged">plot4server_gof_averaged</a></li>
           <li><a href="#plot4server_nt">plot4server_nt</a></li>
           <li><a href="#plot4server_qq">plot4server_qq</a></li>
+          <li><a href="#plot4server_qsbs_ave">plot4server_QSBS_ave</a></li>
           <li><a href="#plot4server_rlevel">plot4server_rlevel</a></li>
           <li><a href="#plot4server_rlevels_coeffvar">plot4server_rlevels_coeffvar</a></li>
           <li><a href="#plot4server_rlevels_coeffvar_ave">plot4server_rlevels_coeffvar_ave</a></li>
@@ -438,7 +436,7 @@ function like plot4server_gof but averaging over all stations filling the min/ma
 <h4>
 Usage
 </h4>
-<pre class="r"><code><div>plot4server_gof_averaged(gof, min_years, max_years)</div></code></pre>
+<pre class="r"><code><div>plot4server_gof_averaged(gof, min_years, max_years, stations2ave&nbsp;=&nbsp;stations2average(min_years, max_years))</div></code></pre>
 <h4>
 Arguments
 </h4>
@@ -545,6 +543,47 @@ Returns nothing else than a plot else than a plot, saves nothing
 </dl>
 </p>
 </div>
+<div id="plot4server_qsbs_ave" class="section level2">
+<h2>plot4server_QSBS_ave</h2>
+<a id="plot4server_QSBS_ave_alias"></a>
+<h3>
+plot4server_QSBS_ave
+</h3>
+<h4>
+Usage
+</h4>
+<pre class="r"><code><div>plot4server_QSBS_ave(gof, r.period, min_years, max_years, stations2ave&nbsp;=&nbsp;stations2average(min_years, max_years))</div></code></pre>
+<h4>
+Arguments
+</h4>
+<dl class="rd-dl">
+<dt>
+gof
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+r.period
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+min_years
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+max_years
+</dt>
+<dd class="rd-dd">
+</dd>
+<dt>
+stations2ave
+</dt>
+<dd class="rd-dd">
+</dd>
+</dl>
+</div>
 <div id="plot4server_rlevel" class="section level2">
 <h2>plot4server_rlevel</h2>
 <a id="plot4server_rlevel_alias"></a>
@@ -636,7 +675,7 @@ plot4server_rlevels_coeffvar_ave
 <h4>
 Usage
 </h4>
-<pre class="r"><code><div>plot4server_rlevels_coeffvar_ave(gof, r.period, min_years, max_years)</div></code></pre>
+<pre class="r"><code><div>plot4server_rlevels_coeffvar_ave(gof, r.period, min_years, max_years, stations2ave&nbsp;=&nbsp;stations2average(min_years, max_years))</div></code></pre>
 <h4>
 Arguments
 </h4>
