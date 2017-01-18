@@ -1,6 +1,6 @@
 ---
-title: "FlomKart Shiny App"
-subtitle: "Supporting functions"
+title: "FlomKartShinyApp Documentation"
+subtitle: "A list a functions to support the FlomKart Shiny app"
 author: ""
 copyright: ""
 output:
@@ -12,9 +12,8 @@ vignette: |
   %\VignetteIndexEntry{FlomKartShinyApp Package Reference}
   %\VignetteEngine{packagedocs::redirect}
 navpills: |
-  <li><a href='index.html'>Docs</a></li>
+  <li><a href='docs.html'>Docs</a></li>
   <li class="active"><a href='rd.html'>Package Ref</a></li>
-  <li><a href='https://github.com/NVE/FlomKart_ShinyApp'>Github <i class='fa fa-github'></i></a></li>
 ---
 
 ```{r auto-gen-child, child="auto-generated-rd.Rmd"}

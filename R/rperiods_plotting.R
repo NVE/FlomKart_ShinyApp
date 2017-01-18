@@ -590,6 +590,7 @@ plot4server_rlevels_coeffvar_ave  <- function(gof, r.period, min_years, max_year
 #' @param r.period 
 #' @param min_years 
 #' @param max_years 
+#' @param stations2ave 
 #'
 #' @return
 #' @export
