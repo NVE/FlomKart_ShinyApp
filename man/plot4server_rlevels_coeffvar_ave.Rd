@@ -4,7 +4,8 @@
 \alias{plot4server_rlevels_coeffvar_ave}
 \title{plot4server_rlevels_coeffvar_ave}
 \usage{
-plot4server_rlevels_coeffvar_ave(gof, r.period, min_years, max_years)
+plot4server_rlevels_coeffvar_ave(gof, r.period, min_years, max_years,
+  stations2ave = stations2average(min_years, max_years))
 }
 \arguments{
 \item{gof}{}

@@ -4,7 +4,8 @@
 \alias{plot4server_gof_averaged}
 \title{plot4server_gof_averaged}
 \usage{
-plot4server_gof_averaged(gof, min_years, max_years)
+plot4server_gof_averaged(gof, min_years, max_years,
+  stations2ave = stations2average(min_years, max_years))
 }
 \arguments{
 \item{gof}{}
