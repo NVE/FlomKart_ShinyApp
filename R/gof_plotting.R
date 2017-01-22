@@ -173,8 +173,18 @@ plot4server_gof_averaged  <- function(gof, min_years, max_years, stations2ave = 
     }
     if (all(is.na(temp2plot)) == FALSE) {
       
-      ymin <- min(temp2plot, na.rm = TRUE) * 0.9
-      ymax <- max(temp2plot, na.rm = TRUE) * 1.1
+      # ymin <- min(temp2plot, na.rm = TRUE) * 0.9
+      # ymax <- max(temp2plot, na.rm = TRUE) * 1.1
+      
+      if (gof == "KS") {
+        ymin <- 0.105
+        ymax <- 0.155
+      }
+      if (gof == "AD") {
+        ymin <- 0.8
+        ymax <- 2.3
+      }
+      
       xmax <- maxindex2plot 
       
       
@@ -239,8 +249,19 @@ plot4server_gof_averaged  <- function(gof, min_years, max_years, stations2ave = 
     }
     if (all(is.na(temp2plot)) == FALSE) {
       
-      ymin <- min(temp2plot, na.rm = TRUE) * 0.9
-      ymax <- max(temp2plot, na.rm = TRUE) * 1.1
+      # ymin <- min(temp2plot, na.rm = TRUE) * 0.9
+      # ymax <- max(temp2plot, na.rm = TRUE) * 1.1
+      
+      if (gof == "KS") {
+        ymin <- 0.105
+        ymax <- 0.155
+      }
+      if (gof == "AD") {
+        ymin <- 0.8
+        ymax <- 2.3
+      }
+      
+      
       xmax <- maxindex2plot     
       
       plot(temp2plot[1, 1:maxindex2plot], type = "l", lwd = 3, xaxt='n',
