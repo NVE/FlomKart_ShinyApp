@@ -60,7 +60,7 @@ print("st_selection_3")
 st_selection_3
 
 ## TO plot the clusters in 2D
-plot(to_cluster[1:2], xlab("fgp"), ylab("size"),
+plot(to_cluster[1:2], xlab("fgp"), ylab("Lake percentage"),
           col = stationsCluster$cluster,
      
           pch = 20, cex = 3)
