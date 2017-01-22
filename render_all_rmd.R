@@ -13,3 +13,4 @@ rmd_files_list <- list.files(path = ".", pattern = "QSBSintegral.Rmd")
 for (rmd_file in rmd_files_list) {
   rmarkdown::render(rmd_file, output_dir = "report")
 }
+
