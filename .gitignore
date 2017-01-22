@@ -38,4 +38,5 @@ Temporary Items
 inst/doc
 data
 *.nc
-
+images
+_gh-pages

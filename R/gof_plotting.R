@@ -130,24 +130,23 @@ plot4server_gof  <- function(station, gof) {
 #' @export
 #'
 #' @examples
-plot4server_gof_averaged  <- function(gof, min_years, max_years) { 
+plot4server_gof_averaged  <- function(gof, min_years, max_years, stations2ave = stations2average(min_years, max_years)) { 
   
   # adding a new stations2ave index for the averaging
-  stations2ave <- c()
+  # stations2ave <- c()
+  # stations2ave <- stations2average(min_years, max_years)
+  print(stations2ave)  # for debugging
   
   print("entered the plotting function")
   print(min_years)
   print(max_years)
-  stations2ave <- stations2average(min_years, max_years)
-  print(stations2ave)  # for debugging
-  print("prout2")
-  
+
   par(mfrow = c(3, 3), oma=c(0, 0, 0, 0), cex = 1.2)
   par(mar = c(4, 4, 2, 0))  # c(bottom, left, top, right)
   ## First subplot
   # d <- 1  # gumbel
   #  maxindex2plot <- length(sampling_years) 
-  maxindex2plot <- 15
+  maxindex2plot <- 13
   
   for (d in seq(along = distr.name)) {
     
@@ -165,7 +164,7 @@ plot4server_gof_averaged  <- function(gof, min_years, max_years) {
       
       for (st in seq(along = stations2ave)) {
         
-        temp2plot_raw[st, m, ] <- var.get.nc(gof_nc, gof, start = c(station$index[stations2ave[st]], d, m, 1, 1), 
+        temp2plot_raw[st, m, ] <- var.get.nc(gof_nc, gof, start = c(stations2ave[st], d, m, 1, 1), 
                                              count = c(1, 1, 1, length(sampling_years), 1)) 
       }
       temp2plot[m, ] <- colMeans(temp2plot_raw[, m, ], na.rm = TRUE) 
@@ -229,7 +228,7 @@ plot4server_gof_averaged  <- function(gof, min_years, max_years) {
       #                                    count = c(1, 1, 1, length(sampling_years), 1))
       
       for (st in seq(along = stations2ave)) {
-        temp2plot_raw[st, d, ] <- var.get.nc(gof_nc, gof, start = c(station$index[stations2ave[st]], d, m, 1, 1), 
+        temp2plot_raw[st, d, ] <- var.get.nc(gof_nc, gof, start = c(stations2ave[st], d, m, 1, 1), 
                                              count = c(1, 1, 1, length(sampling_years), 1)) 
       }
       

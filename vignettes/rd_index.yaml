@@ -27,6 +27,7 @@ sections:
     - plot4server_gof_averaged
     - plot4server_nt
     - plot4server_qq
+    - plot4server_QSBS_ave
     - plot4server_rlevel
     - plot4server_rlevels_coeffvar
     - plot4server_rlevels_coeffvar_ave

@@ -1,0 +1,164 @@
+---
+title: "Experiments with groups of stations: perc_lake quantiles"
+author: "FBK"
+date: "9 januar 2017"
+output: 
+  html_document:
+    highlight: tango
+    toc: true
+    toc_float:
+      collapsed: true
+---
+
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8, fig.path='images/',
+                      echo=FALSE, warning=FALSE, message=FALSE, eval=TRUE)
+```
+
+```{r sourcing}
+
+load("data/flood_metadata.RData")
+source("global.R")
+
+q50 <- median(na.omit(flood_metadata$perc_lake))
+q25 <- quantile(na.omit(flood_metadata$perc_lake), 0.25)
+q75 <- quantile(na.omit(flood_metadata$perc_lake), 0.75)
+st_selection_1 <- which(flood_metadata$perc_lake < q25)
+st_selection_2 <- which(flood_metadata$perc_lake > q25 & flood_metadata$perc_lake < q50)
+st_selection_3 <- which(flood_metadata$perc_lake > q50 & flood_metadata$perc_lake < q75)
+st_selection_4 <- which(flood_metadata$perc_lake > q75)
+```
+
+## QS
+
+#### QS 2y
+
+```{r QS_2y_perc_lake_q25q50q75,  results = "asis", fig.height= 10, fig.width= 15, fig.keep = "all", fig.align='center'}
+gof_type <- "QS"
+returnPeriod <- 2
+
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_1)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_2)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_3)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_4)
+```
+
+#### QS 10y
+
+```{r QS_10y_perc_lake_q25q50q75,  results = "asis", fig.height= 10, fig.width= 15, fig.keep = "all", fig.align='center'}
+
+returnPeriod <- 10
+
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_1)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_2)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_3)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_4)
+```
+
+#### QS 30y
+
+```{r QS_30y_perc_lake_q25q50q75,  results = "asis", fig.height= 10, fig.width= 15, fig.keep = "all", fig.align='center'}
+returnPeriod <- 30
+
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_1)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_2)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_3)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_4)
+```
+
+## BS
+
+#### BS 2y
+
+```{r BS_2y_perc_lake_q25q50q75,  results = "asis", fig.height= 10, fig.width= 15, fig.keep = "all", fig.align='center'}
+gof_type <- "BS"
+returnPeriod <- 2
+
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_1)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_2)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_3)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_4)
+```
+
+#### BS 10y
+
+```{r BS_10y_perc_lake_q25q50q75,  results = "asis", fig.height= 10, fig.width= 15, fig.keep = "all", fig.align='center'}
+returnPeriod <- 10
+
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_1)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_2)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_3)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_4)
+```
+
+#### BS 30y
+
+```{r BS_30y_perc_lake_q25q50q75,  results = "asis", fig.height= 10, fig.width= 15, fig.keep = "all", fig.align='center'}
+returnPeriod <- 30
+
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_1)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_2)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_3)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_4)
+```
+
+## Return levels
+
+#### RL 10y
+
+```{r RL_10y_perc_lake_q25q50q75,  results = "asis", fig.height= 10, fig.width= 15, fig.keep = "all", fig.align='center'}
+gof_type <- "r.levels"
+returnPeriod <- 10
+
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_1)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_2)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_3)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_4)
+```
+
+#### RL 100y
+
+```{r RL_100y_perc_lake_q25q50q75,  results = "asis", fig.height= 10, fig.width= 15, fig.keep = "all", fig.align='center'}
+returnPeriod <- 100
+
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_1)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_2)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_3)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_4)
+```
+
+#### RL 200y
+
+```{r RL_200y_perc_lake_q25q50q75,  results = "asis", fig.height= 10, fig.width= 15, fig.keep = "all", fig.align='center'}
+returnPeriod <- 200
+
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_1)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_2)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_3)
+plot4server_rlevels_coeffvar_ave(gof_type, returnPeriod,30,150, st_selection_4)
+```
+
+## KS
+
+```{r KS_perc_lake_q25q50q75,  results = "asis", fig.height= 10, fig.width= 15, fig.keep = "all", fig.align='center'}
+gof_type <- "KS"
+
+plot4server_gof_averaged(gof_type, 30,150, st_selection_1)
+plot4server_gof_averaged(gof_type, 30,150, st_selection_2)
+plot4server_gof_averaged(gof_type, 30,150, st_selection_3)
+plot4server_gof_averaged(gof_type, 30,150, st_selection_4)
+```
+
+## AD
+
+```{r AD_perc_lake_q25q50q75,  results = "asis", fig.height= 10, fig.width= 15, fig.keep = "all", fig.align='center'}
+gof_type <- "AD"
+
+plot4server_gof_averaged(gof_type, 30,150, st_selection_1)
+plot4server_gof_averaged(gof_type, 30,150, st_selection_2)
+plot4server_gof_averaged(gof_type, 30,150, st_selection_3)
+plot4server_gof_averaged(gof_type, 30,150, st_selection_4)
+
+```
+
