@@ -23,7 +23,7 @@ library(DT)           # for the data tables
 library(shinyBS)      # for the interactive popover features
 library(plotly)       # for interactive graphs
 
-library(FlomKartShinyApp) 
+# library(FlomKartShinyApp) 
 
 source('R/rawdata_plotting.R')
 source('R/mapping.R')
